@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<head>
+   <link rel="stylesheet" href="./../stylesheets/style.css">
+</head>
+<body>
+   <button id = "wobble">Wobble</button>
+   <button id = "stop">Stop</button>
+   <button id = "contourmesh">Contour Mesh</button>
+   <div id="svgContainer"></div>
+   <svg id= "canvas" height="100" width="500">
+      <polygon id = "cell" points="0,0"
+      style="fill:none;stroke:green;stroke-width:2" />
+      <polygon id = "nucleus" points="0,0" />
+      <!-- <polygon id = "cntr1" points="100,100 500,500 1000,100"
+      style="fill:none;stroke:lightblue;stroke-width:2"></polygon> -->
+   </svg>
+   <script type="module" src="index.js"></script>
+</body>
+</html>

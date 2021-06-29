@@ -1,0 +1,8 @@
+
+node_modules/
+bin/
+jsoncpp-master/
+
+*.o
+.vscode/
+src/server/
