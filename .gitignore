@@ -5,4 +5,4 @@ jsoncpp-master/
 
 *.o
 .vscode/
-src/server/
+src/
