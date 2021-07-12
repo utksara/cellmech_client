@@ -16,7 +16,7 @@ function add_coords(array1, array2){
 function create_circle(radius, center, no_of_points){
     let coords = [];
     const delta = 2 * Math.PI/(no_of_points-1);
-    for (var theta = 0; theta <= 2 * Math.PI; theta += delta){
+    for (var theta = 0; theta < 2 * Math.PI; theta += delta){
         var point = [center[0] + radius * Math.cos(theta), center[1] + radius * Math.sin(theta)]
         coords.push(point);
     }
@@ -30,7 +30,8 @@ function create_fluctuations(magnitude, no_of_points, phase = Math.PI/2){
     const C = 0.33 * magnitude;
     const f = 2;
     let points = []
-    for (var theta = 0; theta <= 2 * Math.PI; theta += 2 * Math.PI/no_of_points){
+    const delta = 2 * Math.PI/(no_of_points-1);
+    for (var theta = 0; theta < 2 * Math.PI; theta += delta){
         var r = (A*Math.sin(f * theta) + B*Math.sin( 2 * theta + phase) + C*Math.sin( 3 * theta));
         points.push([r*Math.cos(theta), r*Math.sin(theta)]);
     }
@@ -42,10 +43,10 @@ class shape{
         this.array_of_points = [];
         this.string_of_points = '';    
     }
-    points (){
+    genereate_string_of_points(){
         this.string_of_points = '';
         for (var i = 0; i < this.array_of_points.length; i++){
-            this.string_of_points = this.string_of_points.concat(Math.floor(this.array_of_points[i][0].toString()), ",", Math.floor(this.array_of_points[i][1].toString())," ")
+            this.string_of_points = this.string_of_points.concat(this.array_of_points[i][0].toString(), ",", this.array_of_points[i][1].toString()," ");
         }
     }
 }
@@ -64,7 +65,7 @@ class circle extends shape{
     }
     get_points(){
         this.calculate_points();
-        this.points();
+        this.genereate_string_of_points();
         return this.string_of_points;
     }
 }
@@ -91,7 +92,7 @@ class jelly extends shape{
     }
     get_points(){
         this.calculate_points();
-        this.points()
+        this.genereate_string_of_points()
         return this.string_of_points;
     }
 }
@@ -108,7 +109,7 @@ class anything extends shape{
     }
     get_points(){
         // this.calculate_points();
-        // this.points()
+        // this.genereate_string_of_points()
         return this.string_of_points;
     }
 }

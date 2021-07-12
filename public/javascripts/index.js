@@ -1,5 +1,21 @@
 import * as shapes from './shapes.js';
+
+var loc = window.location, new_uri;
+console.log(window.location)
+
+// const WEBSOCKET_LOC = 'wss:'
+
+// if (WEBSOCKET_LOC){
+//     new_uri = WEBSOCKET_LOC;
+// } else if (loc.protocol === "https:") {
+//     new_uri = "wss:";
+// } else {
+//     new_uri = "ws:";
+// }
+// new_uri += "//" + loc.hostname + ":" + "8082";
+
 const ws = new WebSocket("ws://localhost:8082");
+
 
 class item {
     constructor( id ,shape){
@@ -77,9 +93,14 @@ ws.onmessage = function (event) {
 document.getElementById("contourmesh").onclick = function() {
     // ws.send("cell_membrane ")
     let values = get_item_by_id('cell').shape.center.toString();
+    let boundary = get_item_by_id('cell').shape.string_of_points;
     var msg = {
-        "functname" : "contourmesh",
-        "values" : values
+        "functname" : "traction",
+        "values" : {
+            "displacement" : "",
+            "boundary" : boundary,
+            "theta" : 0
+        }
     };
     ws.send(JSON.stringify(msg));
     // ws.send(get_item_by_id('cell').shape.get_points());
