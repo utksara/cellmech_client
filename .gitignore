@@ -1,6 +1,5 @@
 
 node_modules/
-bin/
 jsoncpp-master/
 
 *.o
