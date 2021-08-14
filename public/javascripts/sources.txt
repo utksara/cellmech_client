@@ -1,3 +1,0 @@
-
-2 -D interpolation:
-    http://fourier.eng.hmc.edu/e176/lectures/ch7/node7.html
