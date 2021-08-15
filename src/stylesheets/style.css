@@ -1,0 +1,121 @@
+body {
+  background-color: rgb(200, 220, 255);
+  width: 1000;
+  height: fit-content;
+}
+
+#mainbutttons{
+  background-color: white;
+  width: 150px;
+  height: 500px;
+  /* border: 1px solid green; */
+  padding: 50px;
+  /* margin: 20px; */
+  position: absolute;
+  left: 1000px;
+  top: 20px;
+}
+
+.buttonsbox{
+  background-color: rgb(184, 249, 255);
+  color: black;
+  font-size: 4mm;
+  border: none; 
+  border-radius: 5px;
+}
+
+.buttonsbox:active {
+  background-color:  rgb(4, 81, 153);
+}
+
+#commandline{
+  background-color: white;
+  width: 800px;
+  height: 50px;
+  padding: 50px;
+  margin: 20px;
+  position: relative;
+  left: 40px;
+  top: 450px;
+}
+
+#cmdtitle{
+  position: relative;
+  left: -15px;
+  top: -50px;
+}
+
+#para{
+  font-size: 11pt;
+  position: relative;
+  left: -15px;
+  top: -70px;
+}
+
+#textarea{
+  position: relative;
+  left: -15px;
+  top: -60px;
+}
+
+#contourmesh {
+  position: relative;
+  left: 0px;
+  top: 30px;
+}
+
+#wobble {
+  position: relative;
+  left: 0px;
+  top: 90px;
+}
+
+#stop {
+  position: relative;
+  left: 10px;
+  top: 90px;
+}
+
+#applytraction {
+  position: relative;
+  left: 0px;
+  top: 110px;
+}
+
+#placenewcell {
+  position: relative;
+  left: 0px;
+  top: 130px;
+}
+
+#realtimeevolution {
+  position: relative;
+  left: 0px;
+  top: 150px;
+}
+
+#reset {
+  background-color: rgb(255, 125, 125);
+  position: relative;
+  left: 0px;
+  top: 190px;
+}
+
+#undo {
+  background-color: rgb(255, 125, 125);
+  position: relative;
+  left: 0px;
+  top: 190px;
+}
+
+#cntr1 {
+  stroke : rgb(0, 204, 255);
+  stroke-width : 1;
+  fill: none;
+}
+
+#canvas {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
