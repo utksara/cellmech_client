@@ -76,16 +76,29 @@ ws.addEventListener("open", () => {
 const xmlns = "http://www.w3.org/2000/svg";
 
 ws.onmessage = function (event) {
-    var g = document.createElementNS(xmlns, "g");
-    var cntr1 = document.createElementNS(xmlns, "path");
-    cntr1.setAttributeNS(null, 'id', "cntr1");
-    cntr1.setAttribute(null, 'fill');
-    cntr1.setAttributeNS(null, 'd', event.data);
-    g.appendChild(cntr1);
-    var svgContainer = document.getElementById("canvas");
-    svgContainer.appendChild(g);
+    if (event.data.from === "line"){
+        var g = document.createElementNS(xmlns, "g");
+        var line1 = document.createElementNS(xmlns, "path");
+        line1.setAttributeNS(null, 'id', event.data.id);
+        line1.setAttribute(null, 'fill');
+        line1.setAttributeNS(null, 'd', event.data.svg);
+        g.appendChild(line1);
+        var svgContainer = document.getElementById("canvas");
+        svgContainer.appendChild(g);
+        list_of_items.push(new item('line1', new shapes.anything(event.data.svg)));
+    }
+    else{
+        var g = document.createElementNS(xmlns, "g");
+        var cntr1 = document.createElementNS(xmlns, "path");
+        cntr1.setAttributeNS(null, 'id', "cntr1");
+        cntr1.setAttribute(null, 'fill');
+        cntr1.setAttributeNS(null, 'd', event.data);
+        g.appendChild(cntr1);
+        var svgContainer = document.getElementById("canvas");
+        svgContainer.appendChild(g);
 
-    list_of_items.push(new item('cntr1', new shapes.anything(event.data)));
+        list_of_items.push(new item('cntr1', new shapes.anything(event.data)));
+    }
 }
 
 document.getElementById("contourmesh").onclick = function() {
