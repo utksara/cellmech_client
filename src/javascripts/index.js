@@ -100,19 +100,3 @@ ws.onmessage = function (event) {
         list_of_items.push(new item('cntr1', new shapes.anything(event.data)));
     }
 }
-
-document.getElementById("contourmesh").onclick = function() {
-    // ws.send("cell_membrane ")
-    let values = get_item_by_id('cell').shape.center.toString();
-    let boundary = get_item_by_id('cell').shape.string_of_points;
-    var msg = {
-        "functname" : "traction",
-        "values" : {
-            "displacement" : "",
-            "boundary" : boundary,
-            "theta" : 0
-        }
-    };
-    ws.send(JSON.stringify(msg));
-    // ws.send(get_item_by_id('cell').shape.get_points());
-}

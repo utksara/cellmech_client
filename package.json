@@ -17,5 +17,8 @@
   "description": "Das features",
   "main": "client.js",
   "author": "utk",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "jsdoc": "^3.6.7"
+  }
 }

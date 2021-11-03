@@ -50,6 +50,16 @@ app.get('/custom-simulation', function (req, res) {
   res.sendFile(fileName, options, callback)
 });
 
+app.get('/test', function (req, res) { 
+  let fileName = 'src/javascripts/test.html'
+  res.sendFile(fileName, options, callback)
+});
+
+app.get('/live', function (req, res) { 
+  let fileName = 'src/javascripts/filereader.html'
+  res.sendFile(fileName, options, callback)
+});
+
 // app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
