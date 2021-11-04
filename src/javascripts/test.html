@@ -497,9 +497,9 @@ function submitTryit(n) {
     // ws.send("cell_membrane ")
     // let values = get_item_by_id('cell').shape.center.toString();
     // let boundary = get_item_by_id('cell').shape.string_of_points;
-    var msg = document.getElementById("textareaCode").value;
+    var msg = JSON.stringify({"simulation_data" : document.getElementById("textareaCode").value}); 
     console.log(msg)
-    ws.binaryData = "blob";
+    // ws.binaryData = "blob";
     ws.send(msg);
     // ws.send(get_item_by_id('cell').shape.get_points());
   }
