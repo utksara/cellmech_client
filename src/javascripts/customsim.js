@@ -35,11 +35,14 @@ ws.addEventListener("open", () => {
     console.log("Connection established with server");
 });
 
+export {ws};
+
 const xmlns = "http://www.w3.org/2000/svg";
 var g = document.createElementNS(xmlns, "g");
 
 ws.onmessage = function (event) {
     const vis_array = JSON.parse(event.data).vis;
+    console.log(vis_array);
     vis_array.forEach(parsed_data => {
         // let parsed_data = JSON.parse(event.data);
         list_of_items.push(parsed_data);

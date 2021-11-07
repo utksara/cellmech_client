@@ -1,7 +1,13 @@
 body {
   background-color: rgb(200, 220, 255);
-  width: 1000;
-  height: fit-content;
+  width: 683;
+  height: 768;
+}
+
+#canvas {
+  position: absolute;
+  left: 450px;
+  top: 0px;
 }
 
 #mainbutttons{
@@ -112,12 +118,6 @@ body {
   stroke : rgb(0, 204, 255);
   stroke-width : 1;
   fill: none;
-}
-
-#canvas {
-  position: absolute;
-  left: 0px;
-  top: 0px;
 }
 
 /* .shapes{

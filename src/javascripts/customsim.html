@@ -1,12 +1,130 @@
-<!DOCTYPE html>
 
+
+<!DOCTYPE html>
+<html lang="en-US">
 <head>
-   <link rel="stylesheet" href="stylesheets/style.css">
+<title>Beehive</title>
+<meta name="viewport" content="width=device-width">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/lib/codemirror.css">
+
+<script>
+if (window.addEventListener) {              
+    window.addEventListener("resize", browserResize);
+} else if (window.attachEvent) {                 
+    window.attachEvent("onresize", browserResize);
+}
+var xbeforeResize = window.innerWidth;
+
+function browserResize() {
+    var afterResize = window.innerWidth;
+    if ((xbeforeResize < (970) && afterResize >= (970)) || (xbeforeResize >= (970) && afterResize < (970)) ||
+        (xbeforeResize < (728) && afterResize >= (728)) || (xbeforeResize >= (728) && afterResize < (728)) ||
+        (xbeforeResize < (468) && afterResize >= (468)) ||(xbeforeResize >= (468) && afterResize < (468))) {
+        xbeforeResize = afterResize;
+        
+        if (document.getElementById("adngin-try_it_leaderboard-0")) {
+                adngin.queue.push(function(){  adngin.cmd.startAuction(["try_it_leaderboard"]); });
+              }
+         
+    }
+    if (window.screen.availWidth <= 768) {
+      restack(window.innerHeight > window.innerWidth);
+    }
+    fixDragBtn();
+    showFrameSize();    
+}
+var fileID = "";
+</script>
 </head>
 <body>
-   <div id="svgContainer"></div>
-   <svg id= "canvas" height = "1080" width = "1920">
-   </svg>
-   <script type="module" src="javascripts/customsim.js"></script>
+   <link rel="stylesheet" href="stylesheets/homePage.css">
+   <div id='tryitLeaderboard'>
+   <!-- TryitLeaderboard -->
+
+   <!--<pre>try_it_leaderboard, all: [320,50][728,90][468,60]</pre>-->
+   <div id="adngin-try_it_leaderboard-0"></div>
+   <!-- adspace tryit-->
+   
+   <div id="shield"></div>
+
+   <div class="trytopnav">
+      <div class="w3-bar" style="overflow:auto">
+         <a id="tryhome" href="https://www.w3schools.com" target="_blank" title="w3schools.com Home" class="w3-button w3-bar-item topnav-icons fa fa-home" style="margin-top:-2px;"></a>
+         <a href="javascript:void(0);" onclick="openMenu()" id="menuButton" title="Open Menu" class="w3-dropdown-click w3-button w3-bar-item topnav-icons fa fa-menu" style="margin-top:-2px;"></a>
+         <a href="javascript:void(0);" onclick="spaceIt.showDialog()" title="Save code" class="w3-button w3-bar-item topnav-icons fa fa-save" style="margin-top:-2px;"></a>
+         <a href="javascript:void(0);" onclick="restack(currentStack)" title="Change Orientation" class="w3-button w3-bar-item w3-hide-small topnav-icons fa fa-rotate" style="margin-top:-2px;"></a>
+         <a href="javascript:void(0);" onclick="retheme()" title="Change Theme" class="w3-button w3-bar-item topnav-icons fa fa-adjust" style="margin-top:-2px;"></a>
+         <button id="runbtn" class="w3-button w3-bar-item w3-hover-white w3-hover-text-green" onclick="submitTryit(1);ga('send', 'event', 'runCode', 'click');adngin.cmd.startAuction(['try_it_leaderboard']);">Run</button>
+         <!-- <a id="getwebsitebtn" class="w3-button w3-bar-item w3-hover-white w3-hover-text-green w3-hide-small" href="https://www.w3schools.com/spaces/" target="_blank" onclick="ga('send', 'event', 'spacesFromTryit', 'click')">Get your<span class="w3-hide-medium"> own</span> website</a> -->
+         <!--<span class="w3-right w3-hide-small xxw3-hide-medium" style="padding:8px 8px 8px 8px;display:block"></span>-->
+         <span class="w3-right w3-hide-small" style="padding:8px 16px 8px 0;display:block;float:right;font-size:16px;margin-top:4px"><span id="framesize"></span></span>
+      </div>
+   </div>
+
+   <a href="javascript:void(0)" id="dragbar"></a>
+   <div id="container">
+   <div id="navbarDropMenu" class="w3-dropdown-content w3-bar-block w3-border" style="z-index:5">
+   <span onclick="openMenu()" class="w3-button w3-display-topright w3-transparent ws-hover-black" title="Close Menu" style="font-weight:bold;padding-top:10px;padding-bottom:11px;"></span>
+   
+   </div>
+   <div id="menuOverlay" class="w3-overlay w3-transparent" style="cursor:pointer;z-index:4"></div>
+   <div id="textareacontainer">
+      <div id="textarea">
+         <div id="textareawrapper">
+         <textarea autocomplete="off" id="textareaCode" wrap="logical" spellcheck="false">
+               <!DOCTYPE html>
+               <head>
+               <link rel="stylesheet" href="stylesheets/visualizationPage.css">
+               </head>
+               <body>
+               <div id="svgContainer"></div>
+               <svg id= "canvas" height = "1080" width = "1920">
+               <script type="module" src="javascripts/customsim.js"></script>
+               </svg>
+               <script type="module" src="javascripts/customsim.js"></script>
+               </body>
+               </html>
+         </textarea>
+         <form id="codeForm" autocomplete="off" style="margin:0px;display:none;">
+            <input type="hidden" name="code" id="code" />
+         </form>
+         </div>
+      </div>
+   </div>
+   <div id="iframecontainer">
+      <div id="iframe">
+         <div id="iframewrapper"></div>
+      </div>
+   </div>
+   </div>
+   <style>
+      #backtotutcontainer {
+      position:absolute;
+      bottom:0;
+      background-color:#F1F1F1;
+      width:100%;
+      height:50px;
+      padding-left:10px;
+      color:#555;
+      }
+      .w3-btn:hover.w3-blue, .w3-btn:active.w3-blue {
+      background-color: #0d8bf2!important;
+      color: #fff!important;
+      box-shadow: none;
+      }
+      body.darktheme #backtotutcontainer {
+      background-color:#616161;
+      color:#ddd;
+      }
+   </style>
+
+   <script src="/lib/codemirror.js"></script>
+   <script src="/lib/codemirror_jsx.js"></script>
+   <!-- <script type="module" src="javascripts/customsim.js"></script> -->
+   <script type="module" src="javascripts/runButton.js">
+   </script>
+   <!-- <script src="/lib/spaceit.js"></script>
+   <link rel="stylesheet" type="text/css" href="/lib/spaceit.css" /> -->
 </body>
 </html>
