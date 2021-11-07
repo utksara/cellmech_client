@@ -14,7 +14,7 @@
     min-width:380px;
     position:absolute;
     width:100%;
-    top:99px;
+    top:0px;
   
     background-color:#E7E9EB;
   }
@@ -59,8 +59,7 @@
     width:100%;
     overflow:auto;
     position:absolute;
-    top:144px;
-  
+    top:50px;
     bottom:0;
     height:auto;
   }

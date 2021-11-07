@@ -1,8 +1,6 @@
 import {ws} from './customsim.js';
   submitTryit();
   function submitTryit() {
-    // const ws = new WebSocket("ws://localhost:8082");
-    console.log("hello", ws);
     document.getElementById("runbtn").onclick = function() {
       var msg = JSON.stringify({"simulation_data" : document.getElementById("textareaCode").value}); 
       ws.send(msg);
@@ -11,7 +9,7 @@ import {ws} from './customsim.js';
     if (window.editor) {
       window.editor.save();
     }
-    var text = document.getElementById("textareaCode").value; 
+    var text = document.getElementById("hiddencode").value; 
     var ifr = document.createElement("iframe");
     ifr.setAttribute("frameborder", "0");
     ifr.setAttribute("id", "iframeResult");

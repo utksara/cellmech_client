@@ -24,7 +24,6 @@ const mouseMoveHandler = function (e) {
 // that's triggered when user drags the resizer
 const mouseDownHandler = function (e) {
     // Get the current mouse position
-    console.log(e)
     x = e.clientX;
     y = e.clientY;
     leftWidth = leftSide.getBoundingClientRect().width;
