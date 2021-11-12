@@ -4,7 +4,7 @@ const ws = new WebSocket("ws://localhost:8082");
 //     constructor( id ,shape){
 //         this.id = id;
 //         this.shape = shape;
-//         this.position = shape.center; 
+//         this.position = shape.center;
 //     }
 //     render() {
 //         document.getElementById(this.id).setAttribute('points', this.shape.get_points());
@@ -59,8 +59,11 @@ ws.onmessage = function (event) {
         g.appendChild(line1);
         var svgContainer = document.getElementById("canvas");
 
-        console.log("pusheen g ", g);
-        svgContainer.appendChild(g);    
+        console.log("pusheen svgContainer ", svgContainer);
+        if (svgContainer != null) {
+            svgContainer.appendChild(g);
+        }
     });
     setInterval(simulate, 10);
 }
+
