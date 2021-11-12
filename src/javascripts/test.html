@@ -1,104 +1,122 @@
-
-
 <!DOCTYPE html>
 <html lang="en-US">
+
 <head>
-<title>Beehive</title>
-<meta name="viewport" content="width=device-width">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta property="og:image" content="https://www.w3schools.com/images/w3schools_logo_436_2.png">
-<meta property="og:image:type" content="image/png">
-<meta property="og:image:width" content="436">
-<meta property="og:image:height" content="228">
-<meta property="og:title" content="W3Schools online HTML editor">
-<meta property="og:description" content="The W3Schools online code editor allows you to edit code and view the result in your browser">
-<!-- <link rel="preload" href="/lib/fonts/montserrat-v18-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/lib/fonts/source-code-pro-v14-latin-regular.woff2" as="font" type="font/woff2" crossorigin> -->
-<!-- <link rel="stylesheet" href="/lib/w3schools29.css"> -->
-<!-- <link rel="stylesheet" href="/lib/codemirror.css"> -->
-<link rel="stylesheet" type="text/css" href="stylesheets/homePage.css" />
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-ga('create', 'UA-3855518-1', 'auto');
-ga('require', 'displayfeatures');
-ga('require', 'GTM-WJ88MZ5');
-ga('send', 'pageview');
-</script>
+  <title>Beehive</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:image" content="https://www.w3schools.com/images/w3schools_logo_436_2.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="436">
+  <meta property="og:image:height" content="228">
+  <meta property="og:title" content="W3Schools online HTML editor">
+  <meta property="og:description"
+    content="The W3Schools online code editor allows you to edit code and view the result in your browser">
 
-<script data-cfasync="false" type="text/javascript">
-var k42 = false;
+  <link rel="stylesheet" type="text/css" href="stylesheets/homePage.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="javascripts/scripts.js"></script>
+  <script>
+    (function (i, s, o, g, r, a, m) {
+      i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-3855518-1', 'auto');
+    ga('require', 'displayfeatures');
+    ga('require', 'GTM-WJ88MZ5');
+    ga('send', 'pageview');
+  </script>
 
-k42 = true;
+  <script data-cfasync="false" type="text/javascript">
+    var k42 = false;
 
-</script>
-<script data-cfasync="false" type="text/javascript">
+    k42 = true;
+
+  </script>
+  <script data-cfasync="false" type="text/javascript">
     window.snigelPubConf = {
-    "adengine": {
+      "adengine": {
 
-      "activeAdUnits": ["try_it_leaderboard"]
+        "activeAdUnits": ["try_it_leaderboard"]
 
-  }
-}
-</script>
-<!-- <script async data-cfasync="false" src="https://cdn.snigelweb.com/adengine/w3schools.com/loader.js" type="text/javascript"></script> -->
-<script>
-if (window.addEventListener) {              
-    window.addEventListener("resize", browserResize);
-} else if (window.attachEvent) {                 
-    window.attachEvent("onresize", browserResize);
-}
-var xbeforeResize = window.innerWidth;
+      }
+    }
 
-function browserResize() {
-    var afterResize = window.innerWidth;
-    if ((xbeforeResize < (970) && afterResize >= (970)) || (xbeforeResize >= (970) && afterResize < (970)) ||
+
+  </script>
+  <!-- <script async data-cfasync="false" src="https://cdn.snigelweb.com/adengine/w3schools.com/loader.js" type="text/javascript"></script> -->
+  <script>
+    if (window.addEventListener) {
+      window.addEventListener("resize", browserResize);
+    } else if (window.attachEvent) {
+      window.attachEvent("onresize", browserResize);
+    }
+    var xbeforeResize = window.innerWidth;
+
+    function browserResize() {
+      var afterResize = window.innerWidth;
+      if ((xbeforeResize < (970) && afterResize >= (970)) || (xbeforeResize >= (970) && afterResize < (970)) ||
         (xbeforeResize < (728) && afterResize >= (728)) || (xbeforeResize >= (728) && afterResize < (728)) ||
-        (xbeforeResize < (468) && afterResize >= (468)) ||(xbeforeResize >= (468) && afterResize < (468))) {
+        (xbeforeResize < (468) && afterResize >= (468)) || (xbeforeResize >= (468) && afterResize < (468))) {
         xbeforeResize = afterResize;
-        
+
         if (document.getElementById("adngin-try_it_leaderboard-0")) {
-                adngin.queue.push(function(){  adngin.cmd.startAuction(["try_it_leaderboard"]); });
-              }
-         
+          adngin.queue.push(function () { adngin.cmd.startAuction(["try_it_leaderboard"]); });
+        }
+
+      }
+      if (window.screen.availWidth <= 768) {
+        restack(window.innerHeight > window.innerWidth);
+      }
+      fixDragBtn();
+      showFrameSize();
     }
-    if (window.screen.availWidth <= 768) {
-      restack(window.innerHeight > window.innerWidth);
-    }
-    fixDragBtn();
-    showFrameSize();    
-}
-var fileID = "";
-</script>
+    var fileID = "";
+  </script>
 </head>
+
 <body>
 
-<div id='tryitLeaderboard'>
+  <div id='tryitLeaderboard'>
+    <div>hello world</div>
+    <div id="adngin-try_it_leaderboard-0"></div>
 
-  <div id="adngin-try_it_leaderboard-0"></div>
- 
-  <div id="shield"></div>
+    <div id="shield"></div>
 
-  <div class="trytopnav">
-      <div class="w3-bar" style="overflow:auto">
-        <button id="runbtn" class="w3-button w3-bar-item w3-hover-white w3-hover-text-green" onclick="submitTryit(1);ga('send', 'event', 'runCode', 'click');adngin.cmd.startAuction(['try_it_leaderboard']);">Run</button>
-        <span class="w3-right w3-hide-small" style="padding:8px 16px 8px 0;display:block;float:right;font-size:16px;margin-top:4px"><span id="framesize"></span></span>
+    <div class="trytopnav">
+      <div class="w3-bar">
+        <button id="runbtn" class="w3-button w3-bar-item w3-hover-white w3-hover-text-green"
+          onclick="submitTryit(1);ga('send', 'event', 'runCode', 'click');adngin.cmd.startAuction(['try_it_leaderboard']);">Run</button>
+
+        <div class="dropdown">
+          <button onclick="myFunction()" class="dropbtn">Dropdown</button>
+          <div id="myDropdown" class="dropdown-content">
+            <a href="#basic" onclick="setInput('basic_curve')">Basic Curve</a>
+            <a href="#simple-chain" onclick="setInput('simple_chain')">Simple Chain</a>
+          </div>
+        </div>
+        <span class="w3-right w3-hide-small"
+          style="padding:8px 16px 8px 0;display:block;float:right;font-size:16px;margin-top:4px"><span
+            id="framesize"></span></span>
       </div>
-  </div>
+    </div>
 
-  <div id="container">
-  <div id="navbarDropMenu" class="w3-dropdown-content w3-bar-block w3-border" style="z-index:5">
-  <span onclick="openMenu()" class="w3-button w3-display-topright w3-transparent ws-hover-black" title="Close Menu" style="font-weight:bold;padding-top:10px;padding-bottom:11px;"></span>
-  </div>
-  <div id="menuOverlay" class="w3-overlay w3-transparent" style="cursor:pointer;z-index:4"></div>
-    <div id="textareacontainer">
-      <div id="textarea">
-        <div id="textareawrapper">
-          <textarea autocomplete="off" id="textareaCode" wrap="logical" spellcheck="false">
+
+
+    <div id="container">
+      <div id="navbarDropMenu" class="w3-dropdown-content w3-bar-block w3-border" style="z-index:5">
+        <span onclick="openMenu()" class="w3-button w3-display-topright w3-transparent ws-hover-black"
+          title="Close Menu" style="font-weight:bold;padding-top:10px;padding-bottom:11px;"></span>
+      </div>
+      <div id="menuOverlay" class="w3-overlay w3-transparent" style="cursor:pointer;z-index:4"></div>
+      <div id="textareacontainer">
+        <div id="textarea">
+          <div id="textareawrapper">
+            <textarea autocomplete="off" id="textareaCode" wrap="logical" spellcheck="false">
           </textarea>
-          <textarea id="hiddencode">
+            <textarea id="hiddencode">
             <!DOCTYPE html>
               <head>
                 <link rel="stylesheet" href="stylesheets/visualizationPage.css">
@@ -108,23 +126,24 @@ var fileID = "";
                 <svg id= "canvas" height = "1080" width = "1920">
                 <script type="module" src="javascripts/customsim.js"></script>
                 </svg>
-                <script type="module" src="javascripts/customsim.js"></script>
+                <!-- <script type="module" src="javascripts/customsim.js"></script> -->
               </body>
               </html>
           </textarea>
-          <form id="codeForm" autocomplete="off" style="margin:0px;display:none;">
-            <input type="hidden" name="code" id="code" />
-          </form>
+            <form id="codeForm" autocomplete="off" style="margin:0px;display:none;">
+              <input type="hidden" name="code" id="code" />
+            </form>
+          </div>
+        </div>
+      </div>
+      <div id="iframecontainer">
+        <div id="iframe">
+          <div id="iframewrapper"></div>
         </div>
       </div>
     </div>
-    <div id="iframecontainer">
-      <div id="iframe">
-        <div id="iframewrapper"></div>
-      </div>
-    </div>
-  </div>
 
-  <script type="module" src="javascripts/runButton.js"></script>
+    <script type="module" src="javascripts/runButton.js"></script>
 </body>
+
 </html>

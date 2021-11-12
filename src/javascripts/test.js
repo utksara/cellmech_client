@@ -49,4 +49,4 @@ const mouseUpHandler = function () {
 };
 
 // Attach the handler
-resizer.addEventListener('mousedown', mouseDownHandler);
+resizer.addEventListener('mousedown', mouseDownHandler)
