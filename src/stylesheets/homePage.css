@@ -15,7 +15,7 @@
     position:absolute;
     width:100%;
     top:0px;
-  
+
     background-color:#E7E9EB;
   }
   .topnav-icons {
@@ -76,11 +76,11 @@
   }
   #textarea {
     padding-left:10px;
-    padding-right:5px;  
+    padding-right:5px;
   }
   #iframe {
     padding-left:5px;
-    padding-right:10px;  
+    padding-right:10px;
   }
   #textareawrapper {
     width:100%;
@@ -105,7 +105,7 @@
     padding:8px;
     resize: none;
     border:none;
-    line-height:normal;    
+    line-height:normal;
   }
   .CodeMirror.cm-s-default {
     line-height:normal;
@@ -116,7 +116,7 @@
   #iframeResult, #iframeSource {
     background-color: #ffffff;
     height:100%;
-    width:100%;  
+    width:100%;
   }
   #stackV {background-color:#999999;}
   #stackV:hover {background-color:#BBBBBB !important;}
@@ -138,7 +138,7 @@
     height:100%;
     padding-right:10px;
     padding-bottom:10px;
-    padding-left:10px;  
+    padding-left:10px;
   }
   #container.horizontal{
     min-height:200px;
@@ -151,7 +151,7 @@
     height:90px;
   }
   .w3-dropdown-content {width:350px}
-  
+
   #breadcrumb ul {
     font-family:'Montserrat', 'Source Sans Pro', sans-serif;
     list-style: none;
@@ -159,7 +159,7 @@
     padding-inline-start: 1px;
     font-size: 12px;
     margin-block-start: 6px;
-    margin-block-end: 6px;	
+    margin-block-end: 6px;
   }
   #breadcrumb li {
     display: inline;
@@ -169,31 +169,31 @@
     background: #E7E9EB;
     padding: 3px 10px 3px 20px;
     position: relative;
-    margin: 0 5px 0 0; 
+    margin: 0 5px 0 0;
     text-decoration: none;
     color: #555;
   }
   #breadcrumb a:after {
-    content: "";  
+    content: "";
     border-top: 12px solid transparent;
     border-bottom: 12px solid transparent;
     border-left: 12px solid #E7E9EB;
-    position: absolute; 
+    position: absolute;
     right: -12px;
     top: 0;
     z-index: 1;
   }
   #breadcrumb a:before {
-    content: "";  
+    content: "";
     border-top: 12px solid transparent;
     border-bottom: 12px solid transparent;
     border-left: 12px solid #fff;
-    position: absolute; 
-    left: 0; 
+    position: absolute;
+    left: 0;
     top: 0;
   }
   #breadcrumb ul li:first-child a:before {
-    display: none; 
+    display: none;
   }
   #breadcrumb ul:last-child li{
     padding-right: 5px;
@@ -216,7 +216,7 @@
   .darktheme #breadcrumb a {
     background:#616161;
     color: #ddd;
-  }	
+  }
   .darktheme #breadcrumb a:after {
     border-left: 12px solid #616161;
   }
@@ -243,7 +243,7 @@
   }
   #getwebsitebtn {
     background-color:#04AA6D;
-    font-family: 'Source Sans Pro', sans-serif;  
+    font-family: 'Source Sans Pro', sans-serif;
     color: white;
     font-size: 18px;
     padding:6px 15px;
@@ -257,7 +257,7 @@
     background-color: #059862 !important;
     color:white!important;
   }
-  
+
   @media screen and (max-width: 727px) {
     .trytopnav {top:70px;}
     #container {top:116px;}
@@ -274,9 +274,9 @@
     #container     {min-width:310px;}
     .stack         {display:none;}
     #tryhome       {display:block;}
-    .trytopnav     {min-width:310px;}  
+    .trytopnav     {min-width:310px;}
   }
-  
+
   body.darktheme {
     background-color:rgb(40, 44, 52);
   }
@@ -297,7 +297,7 @@
   body.darktheme ::-webkit-scrollbar-track-piece {background-color:#000;}
   body.darktheme ::-webkit-scrollbar-thumb {height:50px;background-color: #616161;}
   body.darktheme ::-webkit-scrollbar-thumb:hover {background-color: #aaaaaa;}
-  
+
   .trytopnav {
     height:48px!important;
   }
@@ -307,3 +307,105 @@
   a.topnav-icons, a.topnav-icons.fa-home, a.topnav-icons.fa-menu {
       font-size: 28px!important;
   }
+
+   /* Dropdown Button */
+.dropbtn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: fixed;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+ /* The container must be positioned relative: */
+ .custom-select {
+  position: relative;
+  font-family: Arial;
+}
+
+.custom-select select {
+  display: none; /*hide original SELECT element: */
+}
+
+.select-selected {
+  background-color: DodgerBlue;
+}
+
+/* Style the arrow inside the select element: */
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+}
+
+/* Point the arrow upwards when the select box is open (active): */
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent #fff transparent;
+  top: 7px;
+}
+
+/* style the items (options), including the selected item: */
+.select-items div,.select-selected {
+  color: #ffffff;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+}
+
+/* Style items (options): */
+.select-items {
+  position: absolute;
+  background-color: DodgerBlue;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+
+/* Hide the items when the select box is closed: */
+.select-hide {
+  display: none;
+}
+
+.select-items div:hover, .same-as-selected {
+  background-color: rgba(0, 0, 0, 0.1);
+}
