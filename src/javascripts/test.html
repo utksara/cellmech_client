@@ -492,7 +492,12 @@ body.darktheme #backtotutcontainer {
 submitTryit()
 
 function submitTryit(n) {
-  const ws = new WebSocket("ws://localhost:8082");
+
+   const loc = location; 
+   // const ws = new WebSocket("ws://localhost:8082");
+   const new_uri = "ws:" + "//" + loc.hostname + ":" + "8082";
+   const ws = new WebSocket(new_uri);
+
   document.getElementById("runbtn").onclick = function() {
     // ws.send("cell_membrane ")
     // let values = get_item_by_id('cell').shape.center.toString();
