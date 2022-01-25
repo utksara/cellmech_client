@@ -12,9 +12,6 @@
 <meta property="og:image:height" content="228">
 <meta property="og:title" content="W3Schools online HTML editor">
 <meta property="og:description" content="The W3Schools online code editor allows you to edit code and view the result in your browser">
-<!-- <link rel="preload" href="/lib/fonts/montserrat-v18-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/lib/fonts/source-code-pro-v14-latin-regular.woff2" as="font" type="font/woff2" crossorigin> -->
-<!-- <link rel="stylesheet" href="/lib/w3schools29.css"> -->
 <link rel="stylesheet" href="/lib/codemirror.css">
 <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -160,6 +157,13 @@ a.w3schoolslink:hover,a.w3schoolslink:active {
 #textareawrapper {
   width:100%;
   height:100%;
+  background-color: #ffffff;
+  position:relative;
+  box-shadow:0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+#viewAreaWrapper {
+  width:1%;
+  height:1%;
   background-color: #ffffff;
   position:relative;
   box-shadow:0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
@@ -391,7 +395,7 @@ a.topnav-icons, a.topnav-icons.fa-home, a.topnav-icons.fa-menu {
 #textareacontainer, #iframecontainer {width:48%;}
 #container {height:500px;}
 #textarea, #iframe {width:90%;height:450px;}
-#textareaCode, #iframeResult {height:450px;}
+#viewAreaCode, #iframeResult {height:450px;}
 .stack {display:none;}
 </style>
 <![endif]-->
@@ -441,17 +445,7 @@ a.topnav-icons, a.topnav-icons.fa-home, a.topnav-icons.fa-menu {
     <div id="textarea">
       <div id="textareawrapper">
         <textarea autocomplete="off" id="textareaCode" wrap="logical" spellcheck="false">
-          <!DOCTYPE html>
-          <head>
-            <link rel="stylesheet" href="stylesheets/style.css">
-          </head>
-          <body>
-            <div id="svgContainer"></div>
-            <svg id= "canvas" height = "1080" width = "1920">
-            </svg>
-            <script type="module" src="javascripts/customsim.js"></script>
-          </body>
-          </html>
+          bla bla
         </textarea>
         <form id="codeForm" autocomplete="off" style="margin:0px;display:none;">
           <input type="hidden" name="code" id="code" />
@@ -459,6 +453,26 @@ a.topnav-icons, a.topnav-icons.fa-home, a.topnav-icons.fa-menu {
        </div>
     </div>
   </div>
+
+  <div id="viewAreaWrapper">
+    <textarea autocomplete="off" id="viewAreaCode" wrap="logical" spellcheck="false">
+      <!DOCTYPE html>
+      <head>
+        <link rel="stylesheet" href="stylesheets/style.css">
+      </head>
+      <body>
+        <div id="svgContainer"></div>
+        <svg id= "canvas" height = "1080" width = "1920">
+        </svg>
+        <script type="module" src="javascripts/customsim.js"></script>
+      </body>
+      </html>
+    </textarea>
+    <form id="codeForm" autocomplete="off" style="margin:0px;display:none;">
+      <input type="hidden" name="code" id="code" />
+    </form>
+  </div>
+
   <div id="iframecontainer">
     <div id="iframe">
       <div id="iframewrapper"></div>
@@ -499,19 +513,15 @@ function submitTryit(n) {
    const ws = new WebSocket(new_uri);
 
   document.getElementById("runbtn").onclick = function() {
-    // ws.send("cell_membrane ")
-    // let values = get_item_by_id('cell').shape.center.toString();
-    // let boundary = get_item_by_id('cell').shape.string_of_points;
     var msg = JSON.stringify({"simulation_data" : document.getElementById("textareaCode").value}); 
     console.log(msg)
-    // ws.binaryData = "blob";
     ws.send(msg);
     // ws.send(get_item_by_id('cell').shape.get_points());
   }
   if (window.editor) {
     window.editor.save();
   }
-  var text = document.getElementById("textareaCode").value; 
+  var text = document.getElementById("viewAreaCode").value; 
   var ifr = document.createElement("iframe");
   ifr.setAttribute("frameborder", "0");
   ifr.setAttribute("id", "iframeResult");
@@ -707,7 +717,7 @@ function colorcoding() {
   var ua = navigator.userAgent;
   //Opera Mini refreshes the page when trying to edit the textarea.
   if (ua && ua.toUpperCase().indexOf("OPERA MINI") > -1) { return false; }
-  window.editor = CodeMirror.fromTextArea(document.getElementById("textareaCode"), {
+  window.editor = CodeMirror.fromTextArea(document.getElementById("viewAreaCode"), {
     mode: "text/html",
     htmlMode: true,
     lineWrapping: true,
