@@ -175,7 +175,7 @@ a.w3schoolslink:hover,a.w3schoolslink:active {
   background-color: #ffffff;
   box-shadow:0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
-#textareaCode {
+#textAreaCode {
   background-color: #ffffff;
   font-family: consolas,Menlo,"courier new",monospace;
   font-size:15px;
@@ -305,7 +305,7 @@ a.w3schoolslink:hover,a.w3schoolslink:active {
 .darktheme .currentcrumb {
   color:#ddd;
 }
-#runbtn {
+#run_button {
   background-color:rgb(40, 44, 250);
   color:white;
   font-family: 'Source Sans Pro', sans-serif;
@@ -316,7 +316,7 @@ a.w3schoolslink:hover,a.w3schoolslink:active {
   border-color: rgb(40, 44, 250);
   word-spacing:10px;
 }
-#runbtn:hover {
+#run_button:hover {
   background-color: #059862 !important;
   color:white!important;
 }
@@ -418,7 +418,7 @@ a.topnav-icons, a.topnav-icons.fa-home, a.topnav-icons.fa-menu {
       <a href="javascript:void(0);" onclick="spaceIt.showDialog()" title="Save code" class="w3-button w3-bar-item topnav-icons fa fa-save" style="margin-top:-2px;"></a>
       <a href="javascript:void(0);" onclick="restack(currentStack)" title="Change Orientation" class="w3-button w3-bar-item w3-hide-small topnav-icons fa fa-rotate" style="margin-top:-2px;"></a>
       <a href="javascript:void(0);" onclick="retheme()" title="Change Theme" class="w3-button w3-bar-item topnav-icons fa fa-adjust" style="margin-top:-2px;"></a>
-      <button id="runbtn" class="w3-button w3-bar-item w3-hover-white w3-hover-text-green" onclick="submitTryit(1);ga('send', 'event', 'runCode', 'click');adngin.cmd.startAuction(['try_it_leaderboard']);">Run</button>
+      <button id="run_button" class="w3-button w3-bar-item w3-hover-white w3-hover-text-green" onclick="submitTryit(1);ga('send', 'event', 'runCode', 'click');adngin.cmd.startAuction(['try_it_leaderboard']);">Run</button>
       <!-- <a id="getwebsitebtn" class="w3-button w3-bar-item w3-hover-white w3-hover-text-green w3-hide-small" href="https://www.w3schools.com/spaces/" target="_blank" onclick="ga('send', 'event', 'spacesFromTryit', 'click')">Get your<span class="w3-hide-medium"> own</span> website</a> -->
       <!--<span class="w3-right w3-hide-small xxw3-hide-medium" style="padding:8px 8px 8px 8px;display:block"></span>-->
       <span class="w3-right w3-hide-small" style="padding:8px 16px 8px 0;display:block;float:right;font-size:16px;margin-top:4px"><span id="framesize"></span></span>
@@ -444,10 +444,7 @@ a.topnav-icons, a.topnav-icons.fa-home, a.topnav-icons.fa-menu {
   <div id="textareacontainer">
     <div id="textarea">
       <div id="textareawrapper">
-        <textarea autocomplete="off" id="textareaCode" wrap="logical" spellcheck="false">
-
-let S1 = SYSTEM({})
-
+        <textarea autocomplete="off" id="textAreaCode" wrap="logical" spellcheck="false">
         </textarea>
         <form id="codeForm" autocomplete="off" style="margin:0px;display:none;">
           <input type="hidden" name="code" id="code" />
@@ -505,19 +502,90 @@ body.darktheme #backtotutcontainer {
 <script src="/lib/codemirror.js"></script>
 <script src="/lib/codemirror_jsx.js"></script>
 <script>
-submitTryit()
+submitTryit();
+  
+try{
+  let openRequest = indexedDB.open("textArea", 3);
+  openRequest.onsuccess = function() {
+
+    let db = openRequest.result;
+    let transaction = db.transaction("textArea", "readonly");
+    let textArea = transaction.objectStore("textArea");
+    console.log("inside code textarea", textArea)
+
+    let new_request = textArea.get("textAreaCode")
+    new_request.onsuccess =function(){
+      document.getElementById("textAreaCode").value = new_request.result.content
+      console.log("inside code ", new_request.result.content)
+    }
+  }
+}
+catch(err){
+  console.log(err);
+  document.getElementById("textAreaCode").value = 'let Sparent = SYSTEM()';
+}
 
 function submitTryit(n) {
+  const loc = location; 
+  
+  const new_uri = "ws:" + "//" + loc.hostname + ":" + "8082";
+  const ws = new WebSocket(new_uri);
 
-   const loc = location; 
-   // const ws = new WebSocket("ws://localhost:8082");
-   const new_uri = "ws:" + "//" + loc.hostname + ":" + "8082";
-   const ws = new WebSocket(new_uri);
-
-  document.getElementById("runbtn").onclick = function() {
-    var msg = JSON.stringify({"simulation_data" : document.getElementById("textareaCode").value}); 
-    console.log(msg)
+  document.getElementById("run_button").onclick = function() {
+    var msg = JSON.stringify({"simulation_data" : document.getElementById("textAreaCode").value}); 
+    console.log("Data sent to server", msg);
     ws.send(msg);
+
+    let openRequest = indexedDB.open("textArea", 3);
+    let db;
+      
+    openRequest.onupgradeneeded = function() {
+      db = openRequest.result;
+      console.log("upgrade needed");
+      if(!db.objectStoreNames.contains("textArea")){
+        db.createObjectStore("textArea", {keyPath : "id"})
+        console.log("textArea local db created");
+      }
+    };
+
+    openRequest.onsuccess = function() {
+      let db = openRequest.result;
+      console.log("success");
+      console.log("objectStoreNames :", db.objectStoreNames);
+      db.onversionchange = function() {
+        db.close();
+        alert("Database is outdated, please reload the page.")
+      };
+
+      let transaction = db.transaction("textArea", "readwrite");
+      let textArea = transaction.objectStore("textArea");
+      // console.log("db text area :", textArea);
+
+      let textAreaCode = document.getElementById("textAreaCode").value;
+
+      let new_textArea = {
+        id : "textAreaCode",
+        content : textAreaCode
+      }
+
+      console.log("textArea in reality", textAreaCode);
+
+      let request = textArea.put(new_textArea);
+
+      request.onsuccess = function(){
+        console.log("text area cache upated");
+        let new_request = textArea.get("textAreaCode")
+        new_request.onsuccess = function(){
+          console.log("textArea in IDB", new_request.result.content);
+        }
+      }
+
+    };
+
+    openRequest.onerror = function() {
+      console.error("Error", openRequest.error);
+    };
+
     // ws.send(get_item_by_id('cell').shape.get_points());
   }
   if (window.editor) {
