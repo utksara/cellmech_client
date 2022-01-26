@@ -4,3 +4,4 @@ jsoncpp-master/
 
 *.o
 .vscode/
+nohup.out
