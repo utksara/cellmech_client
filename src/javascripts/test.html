@@ -488,8 +488,9 @@ function submitTryit(n) {
 
   document.getElementById("run_button").onclick = function() {
     var msg = JSON.stringify({"simulation_data" : document.getElementById("textAreaCode").value}); 
-    console.log("Data sent to server", msg);
     ws.send(msg);
+    location.reload();
+    console.log("Data sent to server", msg);
 
     let openRequest = indexedDB.open("textArea", version);
     let db;
