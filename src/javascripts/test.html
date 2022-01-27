@@ -129,7 +129,7 @@ a.w3schoolslink:hover,a.w3schoolslink:active {
   width:100%;
   overflow:auto;
   position:absolute;
-  top:144px;
+  top:50px;
 
   bottom:0;
   height:auto;
@@ -174,7 +174,7 @@ a.w3schoolslink:hover,a.w3schoolslink:active {
   background-color: #ffffff;
   font-family: consolas,Menlo,"courier new",monospace;
   font-size:15px;
-  height:120%;
+  height:100%;
   width:100%;
   padding:8px;
   resize: none;
@@ -446,30 +446,39 @@ body.darktheme #backtotutcontainer {
 }
 </style>
 
-<!-- <script src="/lib/codemirror.js"></script> -->
-<!-- <script src="/lib/codemirror_jsx.js"></script> -->
 <script>
 submitTryit();
+let version = 7
+let openRequest = indexedDB.open("textArea", version)
+openRequest.onerror = function(event){
+  console.log("Why didn't you allow my web app to use IndexedDB?!");
+}
   
-try{
-  let openRequest = indexedDB.open("textArea", 3);
-  openRequest.onsuccess = function() {
+openRequest.onsuccess = function(event) {
 
-    let db = openRequest.result;
-    let transaction = db.transaction("textArea", "readonly");
-    let textAreaData = transaction.objectStore("textArea");
-    
-    let new_request = textAreaData.get("textAreaCode")
-    new_request.onsuccess =function(){
+  let db = event.target.result;
+  let transaction = db.transaction("textArea", "readonly");
+  let textAreaData = transaction.objectStore("textArea");
+
+  let new_request = textAreaData.get("textAreaCode")
+  new_request.onsuccess =function(){
+    try{
       document.getElementById("textAreaCode").value = new_request.result.content
-      console.log("inside code ", new_request.result.content)
+    }catch(err){
+      document.getElementById("textAreaCode").value = 'let s = SYSTEM()'
     }
   }
 }
-catch(err){
-  console.log(err);
-  document.getElementById("textAreaCode").value = 'let Sparent = SYSTEM()';
-}
+
+openRequest.onupgradeneeded = function(event) {
+  let db = event.target.result
+  console.log("version change")
+  if(!db.objectStoreNames.contains("textArea")){
+    db.createObjectStore("textArea", {keyPath : "id"})
+    console.log("textArea local db created");
+  }
+};
+
 
 function submitTryit(n) {
   const loc = location; 
@@ -482,7 +491,7 @@ function submitTryit(n) {
     console.log("Data sent to server", msg);
     ws.send(msg);
 
-    let openRequest = indexedDB.open("textArea", 3);
+    let openRequest = indexedDB.open("textArea", version);
     let db;
       
     openRequest.onupgradeneeded = function() {
@@ -497,6 +506,7 @@ function submitTryit(n) {
     openRequest.onsuccess = function() {
       let db = openRequest.result;
       console.log("success");
+      console.log("openRequest.result ", openRequest.result);
       console.log("objectStoreNames :", db.objectStoreNames);
       db.onversionchange = function() {
         db.close();
