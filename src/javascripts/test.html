@@ -3,15 +3,19 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-<title>Tryit Editor v3.7</title>
+<title>Beehive</title>
 <meta name="viewport" content="width=device-width">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- <meta property="og:image" content="https://www.w3schools.com/images/w3schools_logo_436_2.png"> -->
+
+<!-- <script>
+  logo_location = 
+</script>
+<meta property="og:image" content="http://localhost:3000/images/beehive.png"> -->
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="436">
 <meta property="og:image:height" content="228">
-<meta property="og:title" content="W3Schools online HTML editor">
-<meta property="og:description" content="The W3Schools online code editor allows you to edit code and view the result in your browser">
+<meta property="og:title" content="Beehive custom simulation">
+<meta property="og:description" content="The Beehive is a web application to design graph based simulations">
 <!-- <link rel="stylesheet" href="/lib/codemirror.css"> -->
 <!-- <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -312,6 +316,24 @@ a.w3schoolslink:hover,a.w3schoolslink:active {
   border: none;
   word-spacing:10px;
 }
+#documentation_button {
+  background-color:rgb(147, 149, 255);
+  color:white;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size:18px;
+  padding:6px 25px;
+  /* margin-top:4px; */
+  /* border: radius 0px; */
+  /* border-color: rgb(147, 149, 255); */
+  border: none;
+  word-spacing:10px;
+}
+
+#documentation_button:hover {
+  background-color: #059862 !important;
+  color:white!important;
+}
+
 #run_button:hover {
   background-color: #059862 !important;
   color:white!important;
@@ -379,6 +401,7 @@ a.topnav-icons, a.topnav-icons.fa-home, a.topnav-icons.fa-menu {
         <img src="images/beehive.png" alt="heehive_logo" align="left" width="100" height="30" hspace="10px">
         <div class="w3-bar">
           <button id="run_button" class="w3-bar-item w3-hover-text-green" onclick="submitTryit(1);ga('send', 'event', 'runCode', 'click');adngin.cmd.startAuction(['try_it_leaderboard']);">Run</button>
+          <button id="documentation_button" class="w3-bar-item w3-hover-text-green" onclick="window.location.href = 'https://github.com/utksara/cellmech_server/blob/main/README.md';">Documentation</button>
         </div>
     </div>
 

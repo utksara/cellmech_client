@@ -18,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, './src')))
+app.use('/images', express.static(path.join(__dirname,'src/images')))
 
 const options = {
   root: path.join(__dirname, ''),
@@ -50,10 +51,15 @@ app.get('/custom-simulation', function (req, res) {
   res.sendFile(fileName, options, callback)
 });
 
-app.get('/test', function (req, res) { 
-  let fileName = 'src/javascripts/test.html'
-  res.sendFile(fileName, options, callback)
-});
+// app.get('/beehive-logo', function (req, res) { 
+//   let fileName = 'src/javascripts/beehive.png'
+//   res.sendFile(fileName, options, callback)
+// });
+
+// app.get('/test', function (req, res) { 
+//   let fileName = 'src/javascripts/test.html'
+//   res.sendFile(fileName, options, callback)
+// });
 
 app.get('/live', function (req, res) { 
   let fileName = 'src/javascripts/filereader.html'
