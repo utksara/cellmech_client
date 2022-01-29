@@ -1,6 +1,6 @@
 // const ws = new WebSocket("ws://localhost:8082");
 
-const loc = location;   
+const loc = location;  
 const new_uri = "ws:" + "//" + loc.hostname + ":" + "8082";
 const ws = new WebSocket(new_uri);
 

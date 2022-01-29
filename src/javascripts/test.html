@@ -6,7 +6,7 @@
 <title>Tryit Editor v3.7</title>
 <meta name="viewport" content="width=device-width">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta property="og:image" content="https://www.w3schools.com/images/w3schools_logo_436_2.png">
+<!-- <meta property="og:image" content="https://www.w3schools.com/images/w3schools_logo_436_2.png"> -->
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="436">
 <meta property="og:image:height" content="228">
@@ -465,7 +465,15 @@ openRequest.onsuccess = function(event) {
     try{
       document.getElementById("textAreaCode").value = new_request.result.content
     }catch(err){
-      document.getElementById("textAreaCode").value = 'let s = SYSTEM()'
+      document.getElementById("textAreaCode").value = `const {shapes, calc, SYSTEM, SIMPLECONNECT, CONNECT, CHAIN, STACK, MESH, CONNECTIONS, COPY, bfsTraverse }  = require('./../dev.js');
+\nshapes._reset();
+\nlet Sparent = SYSTEM();
+\nlet main = () => {}
+\n
+\nmodule.exports = {
+\n    Sparent,
+\n    main,
+\n}`
     }
   }
 }
