@@ -47,7 +47,7 @@ app.get('/cell', function (req, res) {
 });
 
 app.get('/custom-simulation', function (req, res) { 
-  let fileName = 'src/javascripts/test.html'
+  let fileName = 'src/beehive.html'
   res.sendFile(fileName, options, callback)
 });
 
