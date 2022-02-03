@@ -43,21 +43,25 @@ const xmlns = "http://www.w3.org/2000/svg";
 var g = document.createElementNS(xmlns, "g");
 
 ws.onmessage = function (event) {
-    const vis_array = JSON.parse(event.data).vis;
-    vis_array.forEach(parsed_data => {
-        // let parsed_data = JSON.parse(event.data);
-        list_of_items.push(parsed_data);
-        var line1 = document.createElementNS(xmlns, "path");
-        line1.setAttributeNS(null, 'id', parsed_data.id);
-        // line1.setAttributeNS(null, 'class', "shapes");
-        line1.setAttributeNS(null, 'stroke', parsed_data.stroke);
-        line1.setAttributeNS(null, 'stroke-width', parsed_data.width);
-        line1.setAttributeNS(null, 'fill', parsed_data.fill);
-        line1.setAttributeNS(null, 'fill', 'none');
-        line1.setAttributeNS(null, 'd', parsed_data.svg);
-        g.appendChild(line1);
-        var svgContainer = document.getElementById("canvas");
-        svgContainer.appendChild(g);    
-    });
-    setInterval(simulate, 10);
+    const raw_data = JSON.parse(event.data)
+
+    if ("vis" in raw_data){
+        const vis_array = JSON.parse(event.data).vis;
+        vis_array.forEach(parsed_data => {
+            // let parsed_data = JSON.parse(event.data);
+            list_of_items.push(parsed_data);
+            var line1 = document.createElementNS(xmlns, "path");
+            line1.setAttributeNS(null, 'id', parsed_data.id);
+            // line1.setAttributeNS(null, 'class', "shapes");
+            line1.setAttributeNS(null, 'stroke', parsed_data.stroke);
+            line1.setAttributeNS(null, 'stroke-width', parsed_data.width);
+            line1.setAttributeNS(null, 'fill', parsed_data.fill);
+            line1.setAttributeNS(null, 'fill', 'none');
+            line1.setAttributeNS(null, 'd', parsed_data.svg);
+            g.appendChild(line1);
+            var svgContainer = document.getElementById("canvas");
+            svgContainer.appendChild(g);    
+        });
+        setInterval(simulate, 10);
+    }
 }

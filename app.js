@@ -3,9 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
 var usersRouter = require('./routes/users');
-
 var app = express();
 
 // view engine setup
@@ -46,10 +44,16 @@ app.get('/cell', function (req, res) {
   res.sendFile(fileName, options, callback)
 });
 
-app.get('/custom-simulation', function (req, res) { 
+app.post('/custom-simulation', function (req, res) { 
   let fileName = 'src/beehive.html'
   res.sendFile(fileName, options, callback)
 });
+
+// app.post(`/second-order-ode`, function (req, res) { 
+//   // let fileName = 'src/beehive.html'
+//   // send_simulation_request();
+//   res.sendFile("hello there", options, callback);
+// });
 
 // app.get('/beehive-logo', function (req, res) { 
 //   let fileName = 'src/javascripts/beehive.png'
