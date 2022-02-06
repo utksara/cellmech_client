@@ -1,4 +1,4 @@
-submitTryit();
+run_simulation();
 let version = 7
 let openRequest = indexedDB.open("textArea", version)
 openRequest.onerror = function(event){
@@ -39,33 +39,7 @@ openRequest.onupgradeneeded = function(event) {
 };
 
 
-function send_simulation_request(fileName) {
-    const new_uri = "ws:" + "//" + loc.hostname + ":" + "8082";
-    const ws = new WebSocket(new_uri);
-    var msg = JSON.stringify({"simulation_request" : fileName}); 
-    ws.send(msg);
-    console.log("send_simulation_request beingcalled")
-
-    ws.onmessage = function (event) {
-        const raw_data = JSON.parse(event.data)
-        if ("text_area" in raw_data){
-            const text_area = JSON.parse(event.data).text_area;
-            document.getElementById("textAreaCode").value = text_area
-        }
-    }
-}
-
-function submitTryit() {
-
-  // $.ajax({
-  //   url: "/second-order-ode"
-  // })
-  // .done(function( data ) {
-  //   console.log( "Sample of data:", data );
-  //   document.getElementById("textAreaCode").value = data
-  //   // $('#holder').html(data.message);
-  // });
-
+function run_simulation() {
   const loc = location; 
   
   const new_uri = "ws:" + "//" + loc.hostname + ":" + "8082";
