@@ -13,8 +13,6 @@
 <meta property="og:title" content="Beehive custom simulation">
 <meta property="og:description" content="The Beehive is a web application to design graph based simulations">
 
-k42 = true;
-
 </script>
 <script data-cfasync="false" type="text/javascript">
     window.snigelPubConf = {
@@ -39,12 +37,7 @@ function browserResize() {
     if ((xbeforeResize < (970) && afterResize >= (970)) || (xbeforeResize >= (970) && afterResize < (970)) ||
         (xbeforeResize < (728) && afterResize >= (728)) || (xbeforeResize >= (728) && afterResize < (728)) ||
         (xbeforeResize < (468) && afterResize >= (468)) ||(xbeforeResize >= (468) && afterResize < (468))) {
-        xbeforeResize = afterResize;
-        
-        if (document.getElementById("adngin-try_it_leaderboard-0")) {
-                adngin.queue.push(function(){  adngin.cmd.startAuction(["try_it_leaderboard"]); });
-              }
-         
+        xbeforeResize = afterResize; 
     }
     if (window.screen.availWidth <= 768) {
       restack(window.innerHeight > window.innerWidth);
@@ -71,8 +64,8 @@ body {
   min-width:380px;
   position:absolute;
   width:100%;
-  top:9px;
-  background-color:#E7E9EB;
+  top:0px;
+  background-color:#00a589;
 }
 .topnav-icons {
   margin-right:8px;
@@ -81,16 +74,15 @@ body {
   color:#999999;
 }
 .w3-bar .w3-bar-item:hover {
-  color:#757575 !important;
+  color:#ffffff !important;
 }
-a.w3schoolslink {
-  padding:0 !important;
-  display:inline !important;
+.center-button{
+  position: fixed;
+  top:  1%;
+  left: 50%;
+  margin-left: -100px;
 }
-a.w3schoolslink:hover,a.w3schoolslink:active {
-  text-decoration:underline !important;
-  background-color:transparent !important;
-}
+
 #dragbar{
   position:absolute;
   cursor: col-resize;
@@ -204,12 +196,12 @@ a.w3schoolslink:hover,a.w3schoolslink:active {
   min-height:200px;
   margin-left:0;
 }
-#tryitLeaderboard {
+/* #header_options {
   overflow:hidden;
   text-align:center;
-  margin-top:50px;
-  height:100px;
-}
+  margin-top:0px;
+  height:00px;
+} */
 .w3-dropdown-content {width:350px}
 
 #breadcrumb ul {
@@ -287,8 +279,9 @@ a.w3schoolslink:hover,a.w3schoolslink:active {
   color:#ddd;
 }
 #run_button {
-  background-color:rgb(147, 149, 255);
+  background-color:rgba(147, 248, 255, 0.514);
   color:white;
+  text-align:center;
   font-family: 'Source Sans Pro', sans-serif;
   font-size:18px;
   padding:6px 25px;
@@ -298,8 +291,10 @@ a.w3schoolslink:hover,a.w3schoolslink:active {
   border: none;
   word-spacing:10px;
 }
+
 #documentation_button {
-  background-color:rgb(147, 149, 255);
+  background-color:#00a589;
+  /* opacity: 0.0; */
   color:white;
   font-family: 'Source Sans Pro', sans-serif;
   font-size:18px;
@@ -311,7 +306,25 @@ a.w3schoolslink:hover,a.w3schoolslink:active {
   word-spacing:10px;
 }
 
-#documentation_button:hover {
+#about_button {
+  background-color:#00a589;
+  color:white;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size:18px;
+  padding:6px 25px;
+  /* margin-top:4px; */
+  /* border: radius 0px; */
+  /* border-color: rgb(147, 149, 255); */
+  border: none;
+  word-spacing:10px;
+}
+
+#about_button:hover {
+  background-color: #059862 !important;
+  color:white!important;
+}
+
+#about_button:hover {
   background-color: #059862 !important;
   color:white!important;
 }
@@ -337,27 +350,6 @@ a.w3schoolslink:hover,a.w3schoolslink:active {
   color:white!important;
 }
 
-body.darktheme {
-  background-color:rgb(40, 44, 52);
-}
-body.darktheme #tryitLeaderboard{
-  background-color:rgb(40, 44, 52);
-}
-body.darktheme .run_button_panel{
-  background-color:#616161;
-  color:#dddddd;
-}
-body.darktheme #container {
-  background-color:#616161;
-}
-body.darktheme .run_button_panel a {
-  color:#dddddd;
-}
-body.darktheme ::-webkit-scrollbar {width:12px;height:3px;}
-body.darktheme ::-webkit-scrollbar-track-piece {background-color:#000;}
-body.darktheme ::-webkit-scrollbar-thumb {height:10px;background-color: #616161;}
-body.darktheme ::-webkit-scrollbar-thumb:hover {background-color: #aaaaaa;}
-
 .fa {
   padding: 10px 10px!important;
 }
@@ -367,15 +359,14 @@ a.topnav-icons, a.topnav-icons.fa-home, a.topnav-icons.fa-menu {
 </style>
 </head>
 <body>
-  <div id='tryitLeaderboard'>
-    <div id="adngin-try_it_leaderboard-0"></div>
+  <div id='header_options'>
     <div id="shield"></div>
     <div class="run_button_panel">
-        <img src="images/beehive.png" alt="heehive_logo" align="left" width="100" height="30" hspace="10px">
+        <img src="images/beehive_logo.svg" alt="heehive_logo" align="left" width="100" height="auto" hspace="10px">
         <div class="w3-bar">
-          <button id="run_button" class="w3-bar-item w3-hover-text-green" onclick="run_simulation();">Run</button>
-          <button id="documentation_button" class="w3-bar-item w3-hover-text-green" onclick="window.location.href = 'https://github.com/utksara/cellmech_server/blob/main/README.md';">Documentation</button>
-          <button id="documentation_button" class="w3-bar-item w3-hover-text-green" onclick="window.location.href = 'http://ec2-18-234-227-168.compute-1.amazonaws.com:3000/';">About</button>
+          <button id="run_button" class="center-button w3-hover-text-green" style="float: centre;" onclick="run_simulation();">Run</button>
+          <button id="documentation_button" class=" right-button w3-hover-text-green" style="float: right;" onclick="window.location.href = 'https://github.com/utksara/cellmech_server/blob/main/README.md';">Documentation</button>
+          <button id="about_button" class="right-button w3-hover-text-green" style="float: right;" onclick="window.location.href = 'http://ec2-18-234-227-168.compute-1.amazonaws.com:3000/';">About</button>
         </div>
     </div>
 

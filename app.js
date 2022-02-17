@@ -50,25 +50,10 @@ app.get('/custom-simulation', function (req, res) {
   res.sendFile(fileName, options, callback)
 });
 
-// app.post(`/second-order-ode`, function (req, res) { 
-//   // let fileName = 'src/beehive.html'
-//   // send_simulation_request();
-//   res.sendFile("hello there", options, callback);
-// });
-
-// app.get('/beehive-logo', function (req, res) { 
-//   let fileName = 'src/javascripts/beehive.png'
-//   res.sendFile(fileName, options, callback)
-// });
-
-// app.get('/test', function (req, res) { 
-//   let fileName = 'src/javascripts/test.html'
-//   res.sendFile(fileName, options, callback)
-// });
-
-app.get('/live', function (req, res) { 
-  let fileName = 'src/javascripts/filereader.html'
-  res.sendFile(fileName, options, callback)
+app.post(`/ode`, function (req, res) { 
+  // let fileName = 'src/beehive.html'
+  // send_simulation_request();
+  res.sendFile("hello there", options, callback);
 });
 
 // app.use('/', indexRouter);
