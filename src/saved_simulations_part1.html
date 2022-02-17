@@ -1,0 +1,380 @@
+
+
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<title>Beehive Custom</title>
+<meta name="viewport" content="width=device-width">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="436">
+<meta property="og:image:height" content="228">
+<meta property="og:title" content="Beehive custom simulation">
+<meta property="og:description" content="The Beehive is a web application to design graph based simulations">
+
+<script data-cfasync="false" type="text/javascript">
+    window.snigelPubConf = {
+    "adengine": {
+
+      "activeAdUnits": ["try_it_leaderboard"]
+
+  }
+}
+</script>
+
+<script>
+  if (window.addEventListener) {              
+      window.addEventListener("resize", browserResize);
+  } else if (window.attachEvent) {                 
+      window.attachEvent("onresize", browserResize);
+  }
+  var xbeforeResize = window.innerWidth;
+
+  function browserResize() {
+      var afterResize = window.innerWidth;
+      if ((xbeforeResize < (970) && afterResize >= (970)) || (xbeforeResize >= (970) && afterResize < (970)) ||
+          (xbeforeResize < (728) && afterResize >= (728)) || (xbeforeResize >= (728) && afterResize < (728)) ||
+          (xbeforeResize < (468) && afterResize >= (468)) ||(xbeforeResize >= (468) && afterResize < (468))) {
+          xbeforeResize = afterResize; 
+      }
+      if (window.screen.availWidth <= 768) {
+        restack(window.innerHeight > window.innerWidth);
+      }
+      fixDragBtn();
+      showFrameSize();    
+  }
+  var fileID = "";
+</script>
+<style>
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+body {
+  color:#000000;
+  margin:0px;
+  font-size:100%;
+}
+.run_button_panel {
+  height:150;
+  overflow:hidden;
+  min-width:380px;
+  position:absolute;
+  width:100%;
+  top:0px;
+  background-color:#00a589;
+}
+.topnav-icons {
+  margin-right:8px;
+}
+.run_button_panel a {
+  color:#999999;
+}
+.w3-bar .w3-bar-item:hover {
+  color:#ffffff !important;
+}
+.center-button{
+  position: fixed;
+  top:  1%;
+  left: 50%;
+  margin-left: -100px;
+}
+
+#dragbar{
+  position:absolute;
+  cursor: col-resize;
+  z-index:3;
+  padding:5px;
+}
+#shield {
+  display:none;
+  top:0;
+  left:0;
+  width:100%;
+  position:absolute;
+  height:100%;
+  z-index:4;
+}
+#framesize {
+  font-family: 'Montserrat', 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+}
+#container {
+  background-color:#E7E9EB;
+  width:100%;
+  overflow:auto;
+  position:absolute;
+  top:50px;
+
+  bottom:0;
+  height:auto;
+}
+#textareacontainer, #iframecontainer {
+  float:left;
+  height:100%;
+  width:50%;
+}
+#textarea, #iframe {
+  height:100%;
+  width:100%;
+  padding-bottom:10px;
+  padding-top:1px;
+}
+#textarea {
+  padding-left:10px;
+  padding-right:5px;  
+}
+#iframe {
+  padding-left:5px;
+  padding-right:10px;  
+}
+#textareawrapper {
+  width:100%;
+  height:100%;
+  background-color: #ffffff;
+  position:relative;
+  box-shadow:0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+#viewAreaWrapper {
+  display:none;
+}
+#iframewrapper {
+  width:100%;
+  height:100%;
+  -webkit-overflow-scrolling: touch;
+  background-color: #ffffff;
+  box-shadow:0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+#textAreaCode {
+  background-color: #ffffff;
+  font-family: consolas,Menlo,"courier new",monospace;
+  font-size:15px;
+  height:100%;
+  width:100%;
+  padding:8px;
+  resize: none;
+  border:none;
+  line-height:normal;    
+}
+.CodeMirror.cm-s-default {
+  line-height:normal;
+  padding: 4px;
+  height:100%;
+  width:100%;
+}
+#iframeResult, #iframeSource {
+  background-color: #ffffff;
+  height:100%;
+  width:100%;  
+}
+#stackV {background-color:#999999;}
+#stackV:hover {background-color:#BBBBBB !important;}
+#stackV.horizontal {background-color:transparent;}
+#stackV.horizontal:hover {background-color:#BBBBBB !important;}
+#stackH.horizontal {background-color:#999999;}
+#stackH.horizontal:hover {background-color:#999999 !important;}
+#textareacontainer.horizontal,#iframecontainer.horizontal{
+  height:50%;
+  float:none;
+  width:100%;
+}
+#textarea.horizontal{
+  height:100%;
+  padding-left:10px;
+  padding-right:10px;
+}
+#iframe.horizontal{
+  height:100%;
+  padding-right:10px;
+  padding-bottom:10px;
+  padding-left:10px;  
+}
+#container.horizontal{
+  min-height:200px;
+  margin-left:0;
+}
+/* #header_options {
+  overflow:hidden;
+  text-align:center;
+  margin-top:0px;
+  height:00px;
+} */
+.w3-dropdown-content {width:350px}
+
+#breadcrumb ul {
+  font-family:'Montserrat', 'Source Sans Pro', sans-serif;
+  list-style: none;
+  display: inline-table;
+  padding-inline-start: 1px;
+  font-size: 12px;
+  margin-block-start: 6px;
+  margin-block-end: 6px;	
+}
+#breadcrumb li {
+  display: inline;
+}
+#breadcrumb a {
+  float: left;
+  background: #E7E9EB;
+  padding: 3px 10px 3px 20px;
+  position: relative;
+  margin: 0 5px 0 0; 
+  text-decoration: none;
+  color: #555;
+}
+#breadcrumb a:after {
+  content: "";  
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-left: 12px solid #E7E9EB;
+  position: absolute; 
+  right: -12px;
+  top: 0;
+  z-index: 1;
+}
+#breadcrumb a:before {
+  content: "";  
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-left: 12px solid #fff;
+  position: absolute; 
+  left: 0; 
+  top: 0;
+}
+#breadcrumb ul li:first-child a:before {
+  display: none; 
+}
+#breadcrumb ul:last-child li{
+  padding-right: 5px;
+}
+#breadcrumb ul li a:hover {
+  background: #04AA6D;
+  color:#fff;
+}
+#breadcrumb ul li a:hover:after {
+  border-left-color: #04AA6D;
+  color:#fff;
+}
+#breadcrumb li:last-child {
+  display: inline-block!important;
+  margin-top: 3px!important;
+}
+.darktheme #breadcrumb li {
+  color:#fff;
+}
+.darktheme #breadcrumb a {
+  background:#616161;
+  color: #ddd;
+}	
+.darktheme #breadcrumb a:after {
+  border-left: 12px solid #616161;
+}
+.darktheme #breadcrumb a:before {
+  border-left: 12px solid rgb(40, 44, 52);
+}
+.darktheme .currentcrumb {
+  color:#ddd;
+}
+#run_button {
+  background-color:rgba(147, 248, 255, 0.514);
+  color:white;
+  text-align:center;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size:18px;
+  padding:6px 25px;
+  /* margin-top:4px; */
+  /* border: radius 0px; */
+  /* border-color: rgb(147, 149, 255); */
+  border: none;
+  word-spacing:10px;
+}
+
+#documentation_button {
+  background-color:#00a589;
+  /* opacity: 0.0; */
+  color:white;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size:18px;
+  padding:6px 25px;
+  /* margin-top:4px; */
+  /* border: radius 0px; */
+  /* border-color: rgb(147, 149, 255); */
+  border: none;
+  word-spacing:10px;
+}
+
+#about_button {
+  background-color:#00a589;
+  color:white;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size:18px;
+  padding:6px 25px;
+  /* margin-top:4px; */
+  /* border: radius 0px; */
+  /* border-color: rgb(147, 149, 255); */
+  border: none;
+  word-spacing:10px;
+}
+
+#about_button:hover {
+  background-color: #059862 !important;
+  color:white!important;
+}
+
+#about_button:hover {
+  background-color: #059862 !important;
+  color:white!important;
+}
+
+#run_button:hover {
+  background-color: #059862 !important;
+  color:white!important;
+}
+#getwebsitebtn {
+  background-color:#04AA6D;
+  font-family: 'Source Sans Pro', sans-serif;  
+  color: white;
+  font-size: 18px;
+  padding:6px 15px;
+  margin-top:4px;
+  margin-right: 10px;
+  display: block;
+  float: right;
+  border-radius: 5px;
+}
+#getwebsitebtn:hover {
+  background-color: #059862 !important;
+  color:white!important;
+}
+
+.fa {
+  padding: 10px 10px!important;
+}
+a.topnav-icons, a.topnav-icons.fa-home, a.topnav-icons.fa-menu {
+    font-size: 28px!important;
+}
+</style>
+</head>
+<body>
+  <div id='header_options'>
+    <div id="shield"></div>
+    <div class="run_button_panel">
+        <img src="images/beehive_logo.svg" alt="heehive_logo" align="left" width="100" height="auto" hspace="10px">
+        <div class="w3-bar">
+          <button id="run_button" class="center-button w3-hover-text-green" style="float: centre;">Run</button>
+          <button id="documentation_button" class=" right-button w3-hover-text-green" style="float: right;" onclick="window.location.href = 'https://github.com/utksara/cellmech_server/blob/main/README.md';">Documentation</button>
+          <button id="about_button" class="right-button w3-hover-text-green" style="float: right;" onclick="window.location.href = 'http://ec2-18-234-227-168.compute-1.amazonaws.com:3000/';">About</button>
+        </div>
+    </div>
+
+    <a href="javascript:void(0)" id="dragbar"></a>
+    <div id="container">
+    <div id="navbarDropMenu" class="w3-dropdown-content w3-bar-block w3-border" style="z-index:5">
+    <span onclick="openMenu()" class="w3-button w3-display-topright w3-transparent ws-hover-black" title="Close Menu" style="font-weight:bold;padding-top:10px;padding-bottom:11px;"></span>
+  </div>
+  <div id="menuOverlay" class="w3-overlay w3-transparent" style="cursor:pointer;z-index:4"></div>
+  <div id="textareacontainer">
+    <div id="textarea">
+      <div id="textareawrapper">

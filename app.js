@@ -6,9 +6,13 @@ var logger = require('morgan');
 var usersRouter = require('./routes/users');
 var app = express();
 
+const {get_file_text} = require('./lib/file_functions.js')
+
 // view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'jade');
+app.set('views', path.join(__dirname, 'views'));
+
+// app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -35,9 +39,13 @@ let callback = function (err) {
   }
 }
 
-app.get('/', function (req, res) { 
-  let fileName = 'index.html'
-  res.sendFile(fileName, options, callback)
+// app.get('/', function (req, res) { 
+//   let fileName = 'index.html'
+//   res.sendFile(fileName, options, callback)
+// });
+
+app.get('/', function(req, res, next) {
+  res.render('index', { title: 'Express' });
 });
 
 app.get('/cell', function (req, res) { 
@@ -50,19 +58,32 @@ app.get('/custom-simulation', function (req, res) {
   res.sendFile(fileName, options, callback)
 });
 
-app.post(`/ode`, function (req, res) { 
-  // let fileName = 'src/beehive.html'
-  // send_simulation_request();
-  res.sendFile("hello there", options, callback);
+let changefile = async function(){
+}
+
+app.get('/simple-laplace', function(req, res) {
+  get_file_text ('simple-laplace', data => {
+      send_json = {}
+      send_json.file_text = data
+      res.render('saved_simulation', send_json)
+    });
+});
+
+app.get('/second-order-ode', function(req, res) {
+  get_file_text ('second-order-ode', data => {
+      send_json = {}
+      send_json.file_text = data
+      res.render('saved_simulation', send_json)
+    });
 });
 
 // app.use('/', indexRouter);
 // app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+// app.use(function(req, res, next) {
+//   next(createError(404));
+// });
 
 // error handler
 app.use(function(err, req, res, next) {

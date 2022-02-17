@@ -1,59 +1,68 @@
-run_simulation();
+const loc = location; 
+const new_uri = "ws:" + "//" + loc.hostname + ":" + "8082";
+const ws = new WebSocket(new_uri);
+
 let version = 7
 let openRequest = indexedDB.open("textArea", version)
 openRequest.onerror = function(event){
   console.log("Why didn't you allow my web app to use IndexedDB?!");
 }
-  
-openRequest.onsuccess = function(event) {
 
-  let db = event.target.result;
-  let transaction = db.transaction("textArea", "readonly");
-  let textAreaData = transaction.objectStore("textArea");
+run_simulation()
 
-  let new_request = textAreaData.get("textAreaCode")
-  new_request.onsuccess =function(){
-    try{
-      document.getElementById("textAreaCode").value = new_request.result.content
-    }catch(err){
-      document.getElementById("textAreaCode").value = `const {shapes, calc, SYSTEM, SIMPLECONNECT, CONNECT, CHAIN, STACK, MESH, CONNECTIONS, COPY, bfsTraverse }  = require('./../dev.js');
-\nshapes._reset();
-\nlet Sparent = SYSTEM();
-\nlet main = () => {}
-\n
-\nmodule.exports = {
-\n    Sparent,
-\n    main,
-\n}`
+if (document.getElementById("notinitCache") === null){
+  openRequest.onsuccess = function(event) {
+
+    let db = event.target.result;
+    let transaction = db.transaction("textArea", "readonly");
+    let textAreaData = transaction.objectStore("textArea");
+
+    let new_request = textAreaData.get("textAreaCode")
+    new_request.onsuccess =function(){
+      try{
+        
+          document.getElementById("textAreaCode").value = new_request.result.content;
+      }catch(err){
+        document.getElementById("textAreaCode").value = `const {shapes, calc, SYSTEM, SIMPLECONNECT, CONNECT, CHAIN, STACK, MESH, CONNECTIONS, COPY, bfsTraverse }  = require('./../dev.js');
+  \nshapes._reset();
+  \nlet Sparent = SYSTEM();
+  \nlet main = () => {}
+  \n
+  \nmodule.exports = {
+  \n    Sparent,
+  \n    main,
+  \n}`
+      }
     }
   }
+
+  openRequest.onupgradeneeded = function(event) {
+    let db = event.target.result
+    console.log("version change")
+    if(!db.objectStoreNames.contains("textArea")){
+      db.createObjectStore("textArea", {keyPath : "id"})
+      console.log("textArea local db created");
+    }
+  };
 }
 
-openRequest.onupgradeneeded = function(event) {
-  let db = event.target.result
-  console.log("version change")
-  if(!db.objectStoreNames.contains("textArea")){
-    db.createObjectStore("textArea", {keyPath : "id"})
-    console.log("textArea local db created");
-  }
-};
-
+function send_data(web_socket){
+  var msg = JSON.stringify({"simulation_data" : document.getElementById("textAreaCode").value}); 
+  web_socket.send(msg);
+  console.log("Data sent to server", msg);
+}
 
 function run_simulation() {
-  const loc = location; 
-  
-  const new_uri = "ws:" + "//" + loc.hostname + ":" + "8082";
-  const ws = new WebSocket(new_uri);
 
+  ws.onopen = (e) => {
+    send_data(ws)
+  }
+
+  console.log("simulation ran ");
   document.getElementById("run_button").onclick = function() {
-    var msg = JSON.stringify({"simulation_data" : document.getElementById("textAreaCode").value}); 
-    ws.send(msg);
-    location.reload();
-    console.log("Data sent to server", msg);
-
+    send_data(ws);
     let openRequest = indexedDB.open("textArea", version);
     let db;
-      
     openRequest.onupgradeneeded = function() {
       db = openRequest.result;
       console.log("upgrade needed");
@@ -103,6 +112,7 @@ function run_simulation() {
       console.error("Error", openRequest.error);
     };
 
+    ws.onmessage = ()=>{location.reload();}
     // ws.send(get_item_by_id('cell').shape.get_points());
   }
   if (window.editor) {
