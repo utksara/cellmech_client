@@ -1,0 +1,55 @@
+        <form id="codeForm" autocomplete="off" style="margin:0px;display:none;">
+          <input type="hidden" name="code" id="code" />
+        </form>
+       </div>
+    </div>
+  </div>
+  <script type="module" src="javascripts/run_button.js"></script>
+  <div id="viewAreaWrapper">
+    <textarea autocomplete="off" id="viewAreaCode" wrap="logical" spellcheck="false">
+      <!DOCTYPE html>
+      <head>
+        <link rel="stylesheet" href="stylesheets/style.css">
+      </head>
+      <body>
+        <div id="svgContainer"></div>
+        <svg id= "canvas" height = "1080" width = "1920">
+        </svg>
+        <script type="module" src="javascripts/customsim.js"></script>
+      </body>
+      </html>
+    </textarea>
+    <form id="codeForm" autocomplete="off" style="margin:0px;display:none;">
+      <input type="hidden" name="code" id="code" />
+    </form>
+  </div>
+
+  <div id="iframecontainer">
+    <div id="iframe">
+      <div id="iframewrapper"></div>
+    </div>
+  </div>
+</div>
+<style>
+#backtotutcontainer {
+  position:absolute;
+  bottom:0;
+  background-color:#F1F1F1;
+  width:100%;
+  height:50px;
+  padding-left:10px;
+  color:#555;
+}
+.w3-btn:hover.w3-blue, .w3-btn:active.w3-blue {
+  background-color: #0d8bf2!important;
+  color: #fff!important;
+  box-shadow: none;
+}
+body.darktheme #backtotutcontainer {
+  background-color:#616161;
+  color:#ddd;
+}
+</style>
+
+</body>
+</html>

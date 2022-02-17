@@ -1,0 +1,18 @@
+html
+  // ...
+  body
+    // ...
+    //- html files have no filter and are included verbatim
+    include ../src/saved_simulations_part1.html
+    textarea(id="textAreaCode")= file_text
+    div(id="notinitCache")
+    include ../src/saved_simulations_part2.html
+
+    script.
+      run_button
+    //-     let fetchRes = fetch('/ode')
+    //-     fetchRes.then(res =>
+    //-         res.json()).then(d => {
+    //-             console.log(d)
+    //-             document.getElementById("textAreaCode").value =  d
+    //-         })
