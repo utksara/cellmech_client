@@ -14,19 +14,29 @@
     </style>
     <img src="images/beehive.svg" alt="beehive_logo" width="200" height="auto">
     <!-- <h1 text-align="center">Beehive</h1> -->
-    <h2>Description</h2>
-    <p> Beehive is a web application to graph based simulation. <br>
-        In a nutshell it aims to provide an interface to simulate any system<br>
-        which can be modelled as a directed graph. The app utilizes<br>
-        dataflow programming to design interconnected graphical systems </p>
-    <h2>Features</h2>
-    <ul>
+    <h2>What it is about</h2>
+    <p> Modeling and simulation has become a common practice in diverse sectors. While most industries have
+        sophisticated modeling techniques and software, the academia has still relatively little access
+        to quality modeling and simulation software, due to the heavy costs incurred while 
+        licensing. Additionally, most of the simulation applications are standalone software mostly
+        running on C/CPP code base and designed to cater either too generic or too specific requirements.</br></br>
+        The aim of Beehive is to resolve the stated issues by providing 
+        <li> An open source, web based M&S framework
+        allowing to design simulation in a declarative way while backing up data </li>
+        <li>Utilize graphical data structures and distributed computing to enable fast, accuarate and scalable computation</li>
+    </p>
+    <h2>What is does</h2>
+    <p>Beehive allows you to define your problem in declarative way, that is, instead of telling how to do things
+        you just declare, what parameters my system need, what functions my system needs, what I need to calculate, what 
+        I want to show on the screen, etc. </br>
+        The way it works internally, is using DAGS (Directed acyclic graphs) and Dataflow programming. The systems expressed
+        using simple paramters are internally transformed into a graph, based on the definition and performs the 
+        required computations.</br></br>
+        Using this, one can design a variety of simulations in Beehive. The features it provides includes but no limited to-
         <li>Use predefined, commonly used equations to run your experiment/simulation or define your own</li>
         <li>Create steady state simulation of your system</li>
-        <li><span class="season">(coming soon)</span> Create real time simulation of your system</li>
-        <li><span class="season">(coming soon)</span> Save your data, download it</li>
-        <li><span class="season">(coming soon)</span> Save your SYSTEM in beehive repository and access it from any beehive project</li>
-    </ul>
+        <li>Visualize any variable/paramters from your results</li>
+    </p>
     <h2><a href="/custom-simulation"> 
         Click here to start Beehive
     </a></h2>

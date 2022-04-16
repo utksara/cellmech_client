@@ -9,18 +9,17 @@ openRequest.onerror = function(event){
 }
 
 run_simulation()
+// send_data_on_opening_page()
 
 if (document.getElementById("notinitCache") === null){
-  openRequest.onsuccess = function(event) {
-
+    openRequest.onsuccess = function(event) {
     let db = event.target.result;
     let transaction = db.transaction("textArea", "readonly");
     let textAreaData = transaction.objectStore("textArea");
 
     let new_request = textAreaData.get("textAreaCode")
     new_request.onsuccess =function(){
-      try{
-        
+      try{        
           document.getElementById("textAreaCode").value = new_request.result.content;
       }catch(err){
         document.getElementById("textAreaCode").value = `const {shapes, calc, SYSTEM, SIMPLECONNECT, CONNECT, CHAIN, STACK, MESH, CONNECTIONS, COPY, bfsTraverse }  = require('./../dev.js');
@@ -46,6 +45,12 @@ if (document.getElementById("notinitCache") === null){
   };
 }
 
+function send_data_on_opening_page(){
+  ws.onopen = (e) => {
+    send_data(ws)
+  }
+}
+
 function send_data(web_socket){
   var msg = JSON.stringify({"simulation_data" : document.getElementById("textAreaCode").value}); 
   web_socket.send(msg);
@@ -53,10 +58,6 @@ function send_data(web_socket){
 }
 
 function run_simulation() {
-
-  ws.onopen = (e) => {
-    send_data(ws)
-  }
 
   console.log("simulation ran ");
   document.getElementById("run_button").onclick = function() {
