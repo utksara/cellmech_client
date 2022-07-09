@@ -393,8 +393,20 @@ a.topnav-icons, a.topnav-icons.fa-home, a.topnav-icons.fa-menu {
       <!DOCTYPE html>
       <head>
         <link rel="stylesheet" href="stylesheets/style.css">
+        <link rel="stylesheet" href="stylesheets/error_message.css">
       </head>
       <body>
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+
+          <!-- Modal content -->
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id ="error_message" class="error_message">Loading...</div>
+          </div>
+
+        </div>
+
         <div id="svgContainer"></div>
         <svg id= "canvas" height = "1080" width = "1920">
         </svg>

@@ -64,4 +64,22 @@ ws.onmessage = function (event) {
         });
         setInterval(simulate, 10);
     }
+
+    if ("err" in raw_data){
+        const error_message = JSON.parse(event.data).err;
+        var modal = document.getElementById("myModal");
+        var span = document.getElementsByClassName("close")[0];
+        var error_message_element = document.getElementById("error_message");
+
+        console.log(error_message);
+
+        error_message_element.innerHTML = error_message;
+
+        modal.style.display = "block";
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+    }
 }
