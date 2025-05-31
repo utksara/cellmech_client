@@ -304,3 +304,7 @@ Now, so far whatever functions we have discussed, are sufficient to create any k
     By the second argument relocationobejct, what we provide is in the recurring pattern of a given unit via telling which subunit of given unit has to replace which subunit in next unit. In the given example, to make the recurring pattern of the unit in the first figure, S1 has to be replaced S2 and S3 has to be replaced by S2. 
 
     ![STACK + CHAIN](https://github.com/utksara/cellmech_server/blob/main/images/pattern.png?raw=true)
+
+* how to run
+
+run `node beehive_server.js`
