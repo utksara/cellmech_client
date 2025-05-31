@@ -1,5 +1,5 @@
 body {
-  background-color: rgb(200, 220, 255);
+  background-color: #868687;
   width: 1000;
   height: fit-content;
 }
@@ -15,14 +15,14 @@ body {
   left: 1000px;
   top: 20px;
 }
-
+/* 
 .buttonsbox{
   background-color: rgb(184, 249, 255);
   color: black;
   font-size: 4mm;
   border: none; 
   border-radius: 5px;
-}
+} */
 
 .buttonsbox:active {
   background-color:  rgb(4, 81, 153);

@@ -58,7 +58,7 @@ body {
   margin:0px;
   font-size:100%;
 }
-.run_button_panel {
+.top_panel {
   height:150;
   overflow:hidden;
   min-width:380px;
@@ -67,40 +67,14 @@ body {
   top:0px;
   background-color:#00a589;
 }
-.topnav-icons {
-  margin-right:8px;
-}
-.run_button_panel a {
+.top_panel a {
   color:#999999;
-}
-.w3-bar .w3-bar-item:hover {
-  color:#ffffff !important;
 }
 .center-button{
   position: fixed;
   top:  1%;
   left: 50%;
   margin-left: -100px;
-}
-
-#dragbar{
-  position:absolute;
-  cursor: col-resize;
-  z-index:3;
-  padding:5px;
-}
-#shield {
-  display:none;
-  top:0;
-  left:0;
-  width:100%;
-  position:absolute;
-  height:100%;
-  z-index:4;
-}
-#framesize {
-  font-family: 'Montserrat', 'Source Sans Pro', sans-serif;
-  font-size: 14px;
 }
 #container {
   background-color:#E7E9EB;
@@ -112,10 +86,15 @@ body {
   bottom:0;
   height:auto;
 }
-#textareacontainer, #iframecontainer {
-  float:left;
-  height:100%;
-  width:50%;
+#textareacontainer{
+  float: inline-end;
+  height:10%;
+  width:100%;
+}
+#iframecontainer{
+  float: inline-end;
+  height:90%;
+  width:100%;
 }
 #textarea, #iframe {
   height:100%;
@@ -134,9 +113,7 @@ body {
 #textareawrapper {
   width:100%;
   height:100%;
-  background-color: #ffffff;
   position:relative;
-  box-shadow:0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 #viewAreaWrapper {
   display:none;
@@ -145,13 +122,12 @@ body {
   width:100%;
   height:100%;
   -webkit-overflow-scrolling: touch;
-  background-color: #ffffff;
-  box-shadow:0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 #textAreaCode {
-  background-color: #ffffff;
+  background-color: #303030;
   font-family: consolas,Menlo,"courier new",monospace;
   font-size:15px;
+  color: #fac8a5;
   height:100%;
   width:100%;
   padding:8px;
@@ -159,125 +135,32 @@ body {
   border:none;
   line-height:normal;    
 }
-.CodeMirror.cm-s-default {
-  line-height:normal;
-  padding: 4px;
-  height:100%;
-  width:100%;
-}
+
 #iframeResult, #iframeSource {
-  background-color: #ffffff;
   height:100%;
   width:100%;  
 }
+
 #stackV {background-color:#999999;}
 #stackV:hover {background-color:#BBBBBB !important;}
 #stackV.horizontal {background-color:transparent;}
 #stackV.horizontal:hover {background-color:#BBBBBB !important;}
 #stackH.horizontal {background-color:#999999;}
 #stackH.horizontal:hover {background-color:#999999 !important;}
-#textareacontainer.horizontal,#iframecontainer.horizontal{
-  height:50%;
-  float:none;
-  width:100%;
-}
+
 #textarea.horizontal{
   height:100%;
   padding-left:10px;
   padding-right:10px;
 }
-#iframe.horizontal{
+#ifram
+e.horizontal{
   height:100%;
   padding-right:10px;
   padding-bottom:10px;
   padding-left:10px;  
 }
-#container.horizontal{
-  min-height:200px;
-  margin-left:0;
-}
-/* #header_options {
-  overflow:hidden;
-  text-align:center;
-  margin-top:0px;
-  height:00px;
-} */
-.w3-dropdown-content {width:350px}
 
-#breadcrumb ul {
-  font-family:'Montserrat', 'Source Sans Pro', sans-serif;
-  list-style: none;
-  display: inline-table;
-  padding-inline-start: 1px;
-  font-size: 12px;
-  margin-block-start: 6px;
-  margin-block-end: 6px;	
-}
-#breadcrumb li {
-  display: inline;
-}
-#breadcrumb a {
-  float: left;
-  background: #E7E9EB;
-  padding: 3px 10px 3px 20px;
-  position: relative;
-  margin: 0 5px 0 0; 
-  text-decoration: none;
-  color: #555;
-}
-#breadcrumb a:after {
-  content: "";  
-  border-top: 12px solid transparent;
-  border-bottom: 12px solid transparent;
-  border-left: 12px solid #E7E9EB;
-  position: absolute; 
-  right: -12px;
-  top: 0;
-  z-index: 1;
-}
-#breadcrumb a:before {
-  content: "";  
-  border-top: 12px solid transparent;
-  border-bottom: 12px solid transparent;
-  border-left: 12px solid #fff;
-  position: absolute; 
-  left: 0; 
-  top: 0;
-}
-#breadcrumb ul li:first-child a:before {
-  display: none; 
-}
-#breadcrumb ul:last-child li{
-  padding-right: 5px;
-}
-#breadcrumb ul li a:hover {
-  background: #04AA6D;
-  color:#fff;
-}
-#breadcrumb ul li a:hover:after {
-  border-left-color: #04AA6D;
-  color:#fff;
-}
-#breadcrumb li:last-child {
-  display: inline-block!important;
-  margin-top: 3px!important;
-}
-.darktheme #breadcrumb li {
-  color:#fff;
-}
-.darktheme #breadcrumb a {
-  background:#616161;
-  color: #ddd;
-}	
-.darktheme #breadcrumb a:after {
-  border-left: 12px solid #616161;
-}
-.darktheme #breadcrumb a:before {
-  border-left: 12px solid rgb(40, 44, 52);
-}
-.darktheme .currentcrumb {
-  color:#ddd;
-}
 #run_button {
   background-color:rgba(147, 248, 255, 0.514);
   color:white;
@@ -361,7 +244,7 @@ a.topnav-icons, a.topnav-icons.fa-home, a.topnav-icons.fa-menu {
 <body>
   <div id='header_options'>
     <div id="shield"></div>
-    <div class="run_button_panel">
+    <div class="top_panel">
         <img src="images/beehive_logo.svg" alt="heehive_logo" align="left" width="100" height="auto" hspace="10px">
         <div class="w3-bar">
           <button id="run_button" class="center-button w3-hover-text-green" style="float: centre;" onclick="run_simulation();">Run</button>
@@ -375,15 +258,21 @@ a.topnav-icons, a.topnav-icons.fa-home, a.topnav-icons.fa-menu {
     <div id="navbarDropMenu" class="w3-dropdown-content w3-bar-block w3-border" style="z-index:5">
     <span onclick="openMenu()" class="w3-button w3-display-topright w3-transparent ws-hover-black" title="Close Menu" style="font-weight:bold;padding-top:10px;padding-bottom:11px;"></span>
   </div>
-  <div id="menuOverlay" class="w3-overlay w3-transparent" style="cursor:pointer;z-index:4"></div>
+
+  <div id="iframecontainer">
+    <div id="iframe">
+      <div id="iframewrapper"></div>
+    </div>
+  </div>
+  
   <div id="textareacontainer">
     <div id="textarea">
       <div id="textareawrapper">
         <textarea autocomplete="off" id="textAreaCode" wrap="logical" spellcheck="false">
         </textarea>
-        <form id="codeForm" autocomplete="off" style="margin:0px;display:none;">
+        <!-- <form id="codeForm" autocomplete="off" style="margin:0px;display:none;">
           <input type="hidden" name="code" id="code" />
-        </form>
+        </form> -->
        </div>
     </div>
   </div>
@@ -398,15 +287,12 @@ a.topnav-icons, a.topnav-icons.fa-home, a.topnav-icons.fa-menu {
       <body>
         <!-- The Modal -->
         <div id="myModal" class="modal">
-
           <!-- Modal content -->
           <div class="modal-content">
             <span class="close">&times;</span>
             <div id ="error_message" class="error_message">Loading...</div>
           </div>
-
         </div>
-
         <div id="svgContainer"></div>
         <svg id= "canvas" height = "1080" width = "1920">
         </svg>
@@ -418,32 +304,10 @@ a.topnav-icons, a.topnav-icons.fa-home, a.topnav-icons.fa-menu {
       <input type="hidden" name="code" id="code" />
     </form>
   </div>
-
-  <div id="iframecontainer">
-    <div id="iframe">
-      <div id="iframewrapper"></div>
-    </div>
-  </div>
 </div>
 <style>
-#backtotutcontainer {
-  position:absolute;
-  bottom:0;
-  background-color:#F1F1F1;
-  width:100%;
-  height:50px;
-  padding-left:10px;
-  color:#555;
-}
-.w3-btn:hover.w3-blue, .w3-btn:active.w3-blue {
-  background-color: #0d8bf2!important;
-  color: #fff!important;
-  box-shadow: none;
-}
-body.darktheme #backtotutcontainer {
-  background-color:#616161;
-  color:#ddd;
-}
+
+
 </style>
 
 <script type="module" src="javascripts/run_button.js"></script>
