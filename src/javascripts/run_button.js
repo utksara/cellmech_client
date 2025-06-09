@@ -22,7 +22,7 @@ if (document.getElementById("notinitCache") === null){
       try{        
           document.getElementById("textAreaCode").value = new_request.result.content;
       }catch(err){
-        document.getElementById("textAreaCode").value = `const {shapes, calc, SYSTEM, SIMPLECONNECT, CONNECT, CHAIN, STACK, MESH, CONNECTIONS, COPY, bfsTraverse }  = require('./../dev.js');
+        document.getElementById("textAreaCode").value = `const {shapes, calc, SYSTEM, SIMPLECONNECT, CONNECT, CHAIN, STACK, MESH, CONNECTIONS, COPY, bfsTraverse }  = require('../dev.js');
   \nshapes._reset();
   \nlet Sparent = SYSTEM();
   \nlet main = () => {}
@@ -127,37 +127,13 @@ function run_simulation() {
   ifr.setAttribute("allowfullscreen", "true");  
   document.getElementById("iframewrapper").innerHTML = "";
   document.getElementById("iframewrapper").appendChild(ifr);
-  if (fileID != "") {
-    var t=text;
-    t=t.replace(/=/gi,"w3equalsign");
-    t=t.replace(/\+/gi,"w3plussign");    
-    var pos=t.search(/script/i)
-    while (pos>0) {
-      t=t.substring(0,pos) + "w3" + t.substr(pos,3) + "w3" + t.substr(pos+3,3) + "tag" + t.substr(pos+6);
-	    pos=t.search(/script/i);
-    }
-    document.getElementById("code").value=t;
-    document.getElementById("codeForm").action = "https://tryit.w3schools.com/tryit_view.php?x=" + Math.random();
-    document.getElementById('codeForm').method = "post";
-    document.getElementById('codeForm').acceptCharset = "utf-8";
-    document.getElementById('codeForm').target = "iframeResult";
-    document.getElementById("codeForm").submit();
-  } else {
-    var ifrw = (ifr.contentWindow) ? ifr.contentWindow : (ifr.contentDocument.document) ? ifr.contentDocument.document : ifr.contentDocument;
-    ifrw.document.open();
-    ifrw.document.write(text);  
-    ifrw.document.close();
-    //23.02.2016: contentEditable is set to true, to fix text-selection (bug) in firefox.
-    //(and back to false to prevent the content from being editable)
-    //(To reproduce the error: Select text in the result window with, and without, the contentEditable statements below.)  
-    if (ifrw.document.body && !ifrw.document.body.isContentEditable) {
-      ifrw.document.body.contentEditable = true;
-      ifrw.document.body.contentEditable = false;
-    }
-  }
+  var ifrw = (ifr.contentWindow) ? ifr.contentWindow : (ifr.contentDocument.document) ? ifr.contentDocument.document : ifr.contentDocument;
+  ifrw.document.open();
+  ifrw.document.write(text);  
+  ifrw.document.close();
 }
 var currentStack=true;
-if ((window.screen.availWidth <= 768 && window.innerHeight > window.innerWidth) || "" == " horizontal") {restack(true);}
+// if ((window.screen.availWidth <= 768 && window.innerHeight > window.innerWidth) || "" == " horizontal") {restack(true);}
 function restack(horizontal) {
     var tc, ic, t, i, c, f, sv, sh, d, height, flt, width;
     tc = document.getElementById("textareacontainer");
@@ -196,8 +172,8 @@ function restack(horizontal) {
         document.getElementById("iframecontainer").style.width = "50%";
         currentStack=true;        
     }
-    fixDragBtn();
-    showFrameSize();
+    // fixDragBtn();
+    // showFrameSize();
 }
 function showFrameSize() {
   var t;
@@ -208,45 +184,44 @@ function showFrameSize() {
 }
 var dragging = false;
 var stack;
-function fixDragBtn() {
-  var textareawidth, leftpadding, dragleft, containertop, buttonwidth
-  var containertop = Number(w3_getStyleValue(document.getElementById("container"), "top").replace("px", ""));
-  if (stack != " horizontal") {
-    document.getElementById("dragbar").style.width = "5px";    
-    textareasize = Number(w3_getStyleValue(document.getElementById("textareawrapper"), "width").replace("px", ""));
-    leftpadding = Number(w3_getStyleValue(document.getElementById("textarea"), "padding-left").replace("px", ""));
-    buttonwidth = Number(w3_getStyleValue(document.getElementById("dragbar"), "width").replace("px", ""));
-    textareaheight = w3_getStyleValue(document.getElementById("textareawrapper"), "height");
-    dragleft = textareasize + leftpadding + (leftpadding / 2) - (buttonwidth / 2);
-    document.getElementById("dragbar").style.top = containertop + "px";
-    document.getElementById("dragbar").style.left = dragleft + "px";
-    document.getElementById("dragbar").style.height = textareaheight;
-    document.getElementById("dragbar").style.cursor = "col-resize";
+// function fixDragBtn() {
+//   var textareawidth, leftpadding, dragleft, containertop, buttonwidth
+//   var containertop = Number(w3_getStyleValue(document.getElementById("container"), "top").replace("px", ""));
+//   if (stack != " horizontal") {
+//     document.getElementById("dragbar").style.width = "5px";    
+//     textareasize = Number(w3_getStyleValue(document.getElementById("textareawrapper"), "width").replace("px", ""));
+//     leftpadding = Number(w3_getStyleValue(document.getElementById("textarea"), "padding-left").replace("px", ""));
+//     buttonwidth = Number(w3_getStyleValue(document.getElementById("dragbar"), "width").replace("px", ""));
+//     textareaheight = w3_getStyleValue(document.getElementById("textareawrapper"), "height");
+//     dragleft = textareasize + leftpadding + (leftpadding / 2) - (buttonwidth / 2);
+//     document.getElementById("dragbar").style.top = containertop + "px";
+//     document.getElementById("dragbar").style.left = dragleft + "px";
+//     document.getElementById("dragbar").style.height = textareaheight;
+//     document.getElementById("dragbar").style.cursor = "col-resize";
     
-  } else {
-    document.getElementById("dragbar").style.height = "5px";
-    if (window.getComputedStyle) {
-        textareawidth = window.getComputedStyle(document.getElementById("textareawrapper"),null).getPropertyValue("height");
-        textareaheight = window.getComputedStyle(document.getElementById("textareawrapper"),null).getPropertyValue("width");
-        leftpadding = window.getComputedStyle(document.getElementById("textarea"),null).getPropertyValue("padding-top");
-        buttonwidth = window.getComputedStyle(document.getElementById("dragbar"),null).getPropertyValue("height");
-    } else {
-        dragleft = document.getElementById("textareawrapper").currentStyle["width"];
-    }
-    textareawidth = Number(textareawidth.replace("px", ""));
-    leftpadding = Number(leftpadding .replace("px", ""));
-    buttonwidth = Number(buttonwidth .replace("px", ""));
-    dragleft = containertop + textareawidth + leftpadding + (leftpadding / 2);
-    document.getElementById("dragbar").style.top = dragleft + "px";
-    document.getElementById("dragbar").style.left = "5px";
-    document.getElementById("dragbar").style.width = textareaheight;
-    document.getElementById("dragbar").style.cursor = "row-resize";        
-  }
-}
+//   } else {
+//     document.getElementById("dragbar").style.height = "5px";
+//     if (window.getComputedStyle) {
+//         textareawidth = window.getComputedStyle(document.getElementById("textareawrapper"),null).getPropertyValue("height");
+//         textareaheight = window.getComputedStyle(document.getElementById("textareawrapper"),null).getPropertyValue("width");
+//         leftpadding = window.getComputedStyle(document.getElementById("textarea"),null).getPropertyValue("padding-top");
+//         buttonwidth = window.getComputedStyle(document.getElementById("dragbar"),null).getPropertyValue("height");
+//     } else {
+//         dragleft = document.getElementById("textareawrapper").currentStyle["width"];
+//     }
+//     textareawidth = Number(textareawidth.replace("px", ""));
+//     leftpadding = Number(leftpadding .replace("px", ""));
+//     buttonwidth = Number(buttonwidth .replace("px", ""));
+//     dragleft = containertop + textareawidth + leftpadding + (leftpadding / 2);
+//     document.getElementById("dragbar").style.top = dragleft + "px";
+//     document.getElementById("dragbar").style.left = "5px";
+//     document.getElementById("dragbar").style.width = textareaheight;
+//     document.getElementById("dragbar").style.cursor = "row-resize";        
+//   }
+// }
 function dragstart(e) {
   e.preventDefault();
   dragging = true;
-  var main = document.getElementById("iframecontainer");
 }
 function dragmove(e) {
   if (dragging) 
@@ -258,7 +233,7 @@ function dragmove(e) {
         var mainPercentage = 100-percentage;
         document.getElementById("textareacontainer").style.width = percentage + "%";
         document.getElementById("iframecontainer").style.width = mainPercentage + "%";
-        fixDragBtn();
+        // fixDragBtn();
       }
     } else {
       var containertop = Number(w3_getStyleValue(document.getElementById("container"), "top").replace("px", ""));
@@ -267,7 +242,7 @@ function dragmove(e) {
         var mainPercentage = 100-percentage;
         document.getElementById("textareacontainer").style.height = percentage + "%";
         document.getElementById("iframecontainer").style.height = mainPercentage + "%";
-        fixDragBtn();
+        // fixDragBtn();
       }
     }
     showFrameSize();    
@@ -288,7 +263,7 @@ if (window.addEventListener) {
   window.addEventListener("touchmove", function(e) {dragmove(e);});
   window.addEventListener("mouseup", dragend);
   window.addEventListener("touchend", dragend);
-  window.addEventListener("load", fixDragBtn);
+  // window.addEventListener("load", fixDragBtn);
   window.addEventListener("load", showFrameSize);
 }
 
