@@ -119,18 +119,18 @@ function run_simulation() {
   if (window.editor) {
     window.editor.save();
   }
-  var text = document.getElementById("viewAreaCode").value; 
-  var ifr = document.createElement("iframe");
-  ifr.setAttribute("frameborder", "0");
-  ifr.setAttribute("id", "iframeResult");
-  ifr.setAttribute("name", "iframeResult");  
-  ifr.setAttribute("allowfullscreen", "true");  
-  document.getElementById("iframewrapper").innerHTML = "";
-  document.getElementById("iframewrapper").appendChild(ifr);
-  var ifrw = (ifr.contentWindow) ? ifr.contentWindow : (ifr.contentDocument.document) ? ifr.contentDocument.document : ifr.contentDocument;
-  ifrw.document.open();
-  ifrw.document.write(text);  
-  ifrw.document.close();
+  // var text = document.getElementById("textareawrapper").value; 
+  // var ifr = document.createElement("iframe");
+  // ifr.setAttribute("frameborder", "0");
+  // ifr.setAttribute("id", "iframeResult");
+  // ifr.setAttribute("name", "iframeResult");  
+  // ifr.setAttribute("allowfullscreen", "true");  
+  // document.getElementById("iframewrapper").innerHTML = "";
+  // document.getElementById("iframewrapper").appendChild(ifr);
+  // var ifrw = (ifr.contentWindow) ? ifr.contentWindow : (ifr.contentDocument.document) ? ifr.contentDocument.document : ifr.contentDocument;
+  // ifrw.document.open();
+  // ifrw.document.write(text);  
+  // ifrw.document.close();
 }
 var currentStack=true;
 // if ((window.screen.availWidth <= 768 && window.innerHeight > window.innerWidth) || "" == " horizontal") {restack(true);}
@@ -257,14 +257,14 @@ function dragend() {
   }
 }
 if (window.addEventListener) {              
-  document.getElementById("dragbar").addEventListener("mousedown", function(e) {dragstart(e);});
-  document.getElementById("dragbar").addEventListener("touchstart", function(e) {dragstart(e);});
-  window.addEventListener("mousemove", function(e) {dragmove(e);});
-  window.addEventListener("touchmove", function(e) {dragmove(e);});
-  window.addEventListener("mouseup", dragend);
-  window.addEventListener("touchend", dragend);
-  // window.addEventListener("load", fixDragBtn);
-  window.addEventListener("load", showFrameSize);
+  // document.getElementById("dragbar").addEventListener("mousedown", function(e) {dragstart(e);});
+  // document.getElementById("dragbar").addEventListener("touchstart", function(e) {dragstart(e);});
+  // window.addEventListener("mousemove", function(e) {dragmove(e);});
+  // window.addEventListener("touchmove", function(e) {dragmove(e);});
+  // window.addEventListener("mouseup", dragend);
+  // window.addEventListener("touchend", dragend);
+  // // window.addEventListener("load", fixDragBtn);
+  // window.addEventListener("load", showFrameSize);
 }
 
 function retheme() {
@@ -290,7 +290,7 @@ function colorcoding() {
   var ua = navigator.userAgent;
   //Opera Mini refreshes the page when trying to edit the textarea.
   if (ua && ua.toUpperCase().indexOf("OPERA MINI") > -1) { return false; }
-  // window.editor = CodeMirror.fromTextArea(document.getElementById("viewAreaCode"), {
+  // window.editor = CodeMirror.fromTextArea(document.getElementById("textareawrapper"), {
   //   mode: "text/html",
   //   htmlMode: true,
   //   lineWrapping: true,
