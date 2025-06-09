@@ -12,6 +12,6 @@ if not os.path.isdir('./inputoutput'):
 if not os.path.isdir('./cpp_bins'):
     os.mkdir('./cpp_bins')
 
-if not os.path.exists('./simulations/livebeehive.js'):
+if not os.path.exists('./lib/simulations/livebeehive.js'):
     with open('./simulations/livebeehive.js', 'w'):
         pass

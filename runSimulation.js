@@ -1,7 +1,7 @@
 const fs = require("fs");
-const { RUNSIMULATION } = require('./dev.js');
+const { RUNSIMULATION } = require('./lib/beehive.js');
 const simulation_file_name = require('./config.json').simulation;
-const online_simulation = require(`./simulations/${simulation_file_name}`);
+const online_simulation = require(`./lib/simulations/${simulation_file_name}`);
 const simulation_to_run = online_simulation;
 
 const run_simulation = async () => {

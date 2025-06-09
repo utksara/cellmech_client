@@ -1,31 +1,16 @@
-
-const req = require("express/lib/request");
 const fs = require("fs");
 const util = require("util");
 const exec = require('child_process').exec;
-const {reset, createlog} = require('./dev.js')
-const {loggerCreator} = require('./loggerConfig.js')
+const { reset, createlog } = require('./lib/dev.js');
+const { loggerCreator } = require('./loggerConfig.js');
 
-/**
- * Uncomment this for test mode
- */
-// const {run_simulation} = require('./runSimulationTest.js')
+const exec_promise = util.promisify(exec);
 
-const exec_promise =  util.promisify(exec);
+const message_prefix = "server data exchange : ";
+const logger = loggerCreator(message_prefix);
 
-/**
- * For secure mode 
- */
-// var privateKey  = fs.readFileSync('certs/key.pem', 'utf8');
-// var certificate = fs.readFileSync('certs/cert.pem', 'utf8');
-// var credentials = {key: privateKey, cert: certificate};
-
-const message_prefix = "server data exchange : " 
-const logger = loggerCreator(message_prefix)
-
-let startup_windows = function () {
-    child = exec(`py ./scripts/startup.py`,
-    function (error, stdout, stderr) {
+function startup_windows() {
+    exec(`py ./scripts/startup.py`, (error, stdout, stderr) => {
         if (error !== null) {
             console.log('exec error: ' + error);
         }
@@ -34,9 +19,8 @@ let startup_windows = function () {
     });
 }
 
-let startup_linux = function () {
-    child = exec(`python3 ./scripts/startup.py`,
-    function (error, stdout, stderr) {
+function startup_linux() {
+    exec(`python3 ./scripts/startup.py`, (error, stdout, stderr) => {
         if (error !== null) {
             console.log('exec error: ' + error);
         }
@@ -44,63 +28,55 @@ let startup_linux = function () {
         console.log(stdout);
     });
 }
-
-var WebSocketServer = require('ws').Server;
-var wss = new WebSocketServer({
-    port: 8082
-});
 
 const startup_scripts = () => {
-    if (process.platform.includes("win")){
-        startup_windows();        
+    if (process.platform.includes("win")) {
+        startup_windows();
     }
-    if (process.platform.includes("linux")){
-        startup_linux();        
+    if (process.platform.includes("linux")) {
+        startup_linux();
     }
-}
+};
 
 startup_scripts();
 
 const run_simulation_async = async () => {
     await exec_promise(`node ${process.cwd()}/runSimulation.js`);
-}
+};
 
 const send_data = async (json_obj, ws, key_string) => {
     const data_to_be_sent = {};
-    data_to_be_sent[`${key_string}`] = json_obj
-    const message = "Sending data to cleint : " + JSON.stringify(data_to_be_sent);
-    createlog(logger, "Sending data to cleint", "info");
-    // console.log("Sending data to cleint : ", data_to_be_sent[`${key_string}`].length);
+    data_to_be_sent[`${key_string}`] = json_obj;
+    createlog(logger, "Sending data to client", "info");
     ws.send(JSON.stringify(data_to_be_sent));
-    console.log("Sending data to client")
+    console.log("Sending data to client");
 };
 
-const update_simulation  = async function (websocket) {
+const update_simulation = async (websocket) => {
     createlog(logger, "updated simulation", "info");
     console.log("updating");
 
     reset();
-    try { 
-        await run_simulation_async();          
+    try {
+        await run_simulation_async();
         let array_of_items = JSON.parse(fs.readFileSync('inputoutput/output_data.json', 'utf8'));
         console.log("pusheen vis array length", array_of_items.length);
-        await send_data(array_of_items, websocket, "vis") 
+        await send_data(array_of_items, websocket, "vis");
     } catch (error) {
-        console.log(error);   
-        const error_message = "There are errors in the code"
-        await send_data(error_message, websocket, "err")
+        console.log(error);
+        const error_message = "There are errors in the code";
+        await send_data(error_message, websocket, "err");
     }
-}
+};
 
-const update_text_area = async function(websocket, data) {
+const update_text_area = async (websocket, data) => {
     var fileName = data.simulation_request;
     let array_of_items = JSON.parse(fs.readFileSync(`simulations/${fileName}.js`, 'utf8'));
-    await send_data(array_of_items, websocket, "text_area")
-}
+    await send_data(array_of_items, websocket, "text_area");
+};
 
-const execute_data_cell_processing = async (websocket)=>{
-    child = exec(`./cpp_bins/main`,
-    function (error, stdout, stderr) {
+const execute_data_cell_processing = async (websocket) => {
+    exec(`./cpp_bins/main`, (error, stdout, stderr) => {
         if (error !== null) {
             console.log('exec error: ' + error);
         }
@@ -108,11 +84,11 @@ const execute_data_cell_processing = async (websocket)=>{
         try {
             const output_data = JSON.parse(fs.readFileSync('inputoutput/output_data.json', 'utf8'));
             websocket.send(output_data.data);
-            } catch (err) {
-            console.error(err)
-        };
+        } catch (err) {
+            console.error(err);
+        }
     });
-}
+};
 
 const initiate_simulation = async (websocket) => {
     await update_simulation(websocket);
@@ -120,31 +96,34 @@ const initiate_simulation = async (websocket) => {
     websocket.on("close", () => {
         console.log("Client has disconnected");
     });
-}
+};
 
 const register_data = data => {
-    var msg = data.vis;    
+    var msg = data.vis;
     fs.writeFileSync('inputoutput/input_data.json', msg, (err) => {
         if (err) throw err;
         console.log('Data written to file');
     });
-}
+};
 
 const accept_simulation_from_client = async data => {
-    var msg = data.simulation_data;    
-    fs.writeFileSync('simulations/livebeehive.js', msg, (err) => {
+    var msg = data.simulation_data;
+    fs.writeFileSync('./lib/simulations/livebeehive.js', msg, (err) => {
         if (err) throw err;
         console.log('Data written to file');
     });
-}
+};
 
 const accept_simulation_request = async data => {
-    var fileName = data.simulation_request;  
-    fs.copyFile(`simulations/${fileName}.js`, 'simulations/livebeehive.js',(err) => {
+    var fileName = data.simulation_request;
+    fs.copyFile(`simulations/${fileName}.js`, './lib/simulations/livebeehive.js', (err) => {
         if (err) throw err;
         console.log('Data written to file');
     });
-}
+};
+
+const WebSocketServer = require('ws').Server;
+const wss = new WebSocketServer({ port: 8082 });
 
 wss.on("connection" , async ws => {
     initiate_simulation(ws);
