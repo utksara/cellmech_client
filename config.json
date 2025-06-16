@@ -1,10 +1,10 @@
 {
-    "DEBUG" : false,
+    "DEBUG" : true,
     "DEBUGPROCESSES" : false,
     "DEBUGSYSTEMS" : false,
-    "DEBUGPARAMS" : true,
-    "simulation" : "livebeehive.js",
-    "DEBUGVISOBEJCT" : false,
+    "DEBUGPARAMS" : false,
+    "simulation" : "simple_laplace.js",
+    "DEBUGVISOBEJCT" : true,
     "ADDTRACER" : true,
     "LOGGING" : true,
     "ADD_TRACER": true

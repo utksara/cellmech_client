@@ -40,8 +40,22 @@ const startup_scripts = () => {
 
 startup_scripts();
 
-const run_simulation_async = async () => {
-    await exec_promise(`node ${process.cwd()}/runSimulation.js`);
+const mode = "js"
+
+const run_simulation_async = async (mode) => {
+    if (mode === "js") {
+        const { RUNSIMULATION } = require('./lib/beehive.js');
+        const simulation_file_name = require('./config.json').simulation;
+        const simulation_to_run = require(`./lib/simulations/${simulation_file_name}`);
+        let svg_data = await RUNSIMULATION(simulation_to_run);
+        fs.writeFileSync('inputoutput/output_data.json', JSON.stringify(svg_data), (err) => {
+            if (err) throw err;
+        });
+        console.log("Simulation run complete");
+    }
+    if (mode === "py") {
+        await exec_promise(`python3 ${process.cwd()}/runSimulation.py`);
+    }
 };
 
 const send_data = async (json_obj, ws, key_string) => {
@@ -58,9 +72,8 @@ const update_simulation = async (websocket) => {
 
     reset();
     try {
-        await run_simulation_async();
+        await run_simulation_async(mode);
         let array_of_items = JSON.parse(fs.readFileSync('inputoutput/output_data.json', 'utf8'));
-        console.log("pusheen vis array length", array_of_items.length);
         await send_data(array_of_items, websocket, "vis");
     } catch (error) {
         console.log(error);
