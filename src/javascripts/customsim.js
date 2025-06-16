@@ -21,7 +21,8 @@ const ws = new WebSocket(new_uri);
 let list_of_items =[];
 
 let render = function(elem) {
-    // document.getElementById(elem.id).setAttribute('points', elem.svg);
+    console.log("Rendering item with id: " + elem.id);
+    document.getElementById(elem.id).setAttribute('points', elem.svg);
 }
 
 let break_sim = false;
@@ -60,10 +61,11 @@ ws.onmessage = function (event) {
             line1.setAttributeNS(null, 'fill', 'none');
             line1.setAttributeNS(null, 'd', parsed_data.svg);
             g.appendChild(line1);
-            var svgContainer = document.getElementById("canvas");
+            var svgContainer = document.getElementById("svgContainer");
             svgContainer.appendChild(g);    
         });
-        setInterval(simulate, 10);
+        simulate();
+        // setInterval(simulate, 10);
     }
 
     if ("err" in raw_data){

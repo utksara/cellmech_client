@@ -45,8 +45,8 @@ function get_item_by_id(id){
 
 function init_setup(){
     // console.log(startime_time);
-    document.getElementById("canvas").setAttribute('height',600);
-    document.getElementById("canvas").setAttribute('width',1050);
+    document.getElementById("svgContainer").setAttribute('height',600);
+    document.getElementById("svgContainer").setAttribute('width',1050);
     for (let i = 0; i<list_of_items.length; i++){
         let an_item = list_of_items[i];
         an_item.render();
@@ -83,7 +83,7 @@ ws.onmessage = function (event) {
         line1.setAttribute(null, 'fill');
         line1.setAttributeNS(null, 'd', event.data.svg);
         g.appendChild(line1);
-        var svgContainer = document.getElementById("canvas");
+        var svgContainer = document.getElementById("svgContainer");
         svgContainer.appendChild(g);
         list_of_items.push(new item('line1', new shapes.anything(event.data.svg)));
     }
@@ -94,7 +94,7 @@ ws.onmessage = function (event) {
         cntr1.setAttribute(null, 'fill');
         cntr1.setAttributeNS(null, 'd', event.data);
         g.appendChild(cntr1);
-        var svgContainer = document.getElementById("canvas");
+        var svgContainer = document.getElementById("svgContainer");
         svgContainer.appendChild(g);
 
         list_of_items.push(new item('cntr1', new shapes.anything(event.data)));

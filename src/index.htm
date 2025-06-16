@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centered SVG Image</title>
+    <!-- Tailwind CSS CDN for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom CSS for the SVG stroke and fill */
+        body {
+            font-family: "Inter", sans-serif;
+            margin: 0;
+            padding: 0;
+            /* Ensure body takes full viewport height for centering */
+            min-height: 100vh;
+        }
+
+        .svg-container {
+            /* Flexbox for centering content */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100vh; /* Take full viewport height */
+        }
+
+        /* Styling for the SVG path itself */
+        .centered-path {
+            fill: #60a5fa; /* A nice blue fill */
+            stroke: #3b82f6; /* A slightly darker blue border */
+            stroke-width: 3;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2)); /* Subtle shadow for depth */
+            transition: fill 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effects */
+        }
+
+        .centered-path:hover {
+            fill: #3b82f6; /* Change fill color on hover */
+            transform: scale(1.05); /* Slightly enlarge on hover */
+        }
+    </style>
+</head>
+<body>
+<!-- <body class="bg-gradient-to-br from-blue-100 to-indigo-200 flex items-center justify-center min-h-screen p-4"> -->
+    <div class="svg-container bg-white rounded-xl shadow-lg p-8 max-w-lg w-full flex flex-col items-center justify-center">
+        <svg viewBox="0 0 200 200" class="w-4/5 h-auto max-w-xs md:max-w-sm lg:max-w-md">
+            <!-- <path
+                class="centered-path"
+                d="M 100 20
+                   C 150 10 180 60 170 110
+                   C 160 160 110 190 60 170
+                   C 10 150 20 100 30 50
+                   C 40 0 80 10 100 20 Z">
+            </path> -->
+            <path id="shape0" stroke="rgb(255, 0, 0)" stroke-width="10" fill="none" d="M 100,0 100,1000 Z"></path>
+        </svg>
+    </div>
+</body>
+</html>

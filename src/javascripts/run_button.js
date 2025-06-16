@@ -4,9 +4,6 @@ const ws = new WebSocket(new_uri);
 
 let version = 7
 let openRequest = indexedDB.open("textArea", version)
-openRequest.onerror = function(event){
-  console.log("Why didn't you allow my web app to use IndexedDB?!");
-}
 
 run_simulation()
 // send_data_on_opening_page()
@@ -17,12 +14,12 @@ if (document.getElementById("notinitCache") === null){
     let transaction = db.transaction("textArea", "readonly");
     let textAreaData = transaction.objectStore("textArea");
 
-    let new_request = textAreaData.get("textAreaCode")
+    let new_request = textAreaData.get("promptInput")
     new_request.onsuccess =function(){
       try{        
-          document.getElementById("textAreaCode").value = new_request.result.content;
+          document.getElementById("promptInput").value = new_request.result.content;
       }catch(err){
-        document.getElementById("textAreaCode").value = `const {shapes, calc, SYSTEM, SIMPLECONNECT, CONNECT, CHAIN, STACK, MESH, CONNECTIONS, COPY, bfsTraverse }  = require('../dev.js');
+        document.getElementById("promptInput").value = `const {shapes, calc, SYSTEM, SIMPLECONNECT, CONNECT, CHAIN, STACK, MESH, CONNECTIONS, COPY, bfsTraverse }  = require('../dev.js');
   \nshapes._reset();
   \nlet Sparent = SYSTEM();
   \nlet main = () => {}
@@ -52,7 +49,7 @@ function send_data_on_opening_page(){
 }
 
 function send_data(web_socket){
-  var msg = JSON.stringify({"simulation_data" : document.getElementById("textAreaCode").value}); 
+  var msg = JSON.stringify({"simulation_data" : document.getElementById("promptInput").value}); 
   web_socket.send(msg);
   console.log("Data sent to server", msg);
 }
@@ -87,23 +84,23 @@ function run_simulation() {
       let textAreaData = transaction.objectStore("textArea");
       // console.log("db text area :", textArea);
 
-      let textAreaCode = document.getElementById("textAreaCode").value;
+      let promptInput = document.getElementById("promptInput").value;
 
       let new_textArea = {
-        id : "textAreaCode",
-        content : textAreaCode
+        id : "promptInput",
+        content : promptInput
       }
 
-      console.log("textArea in reality", textAreaCode);
+      // console.log("textArea in reality", promptInput);
 
       let request = textAreaData.put(new_textArea);
 
       request.onsuccess = function(){
         console.log("text area cache upated");
 
-        let new_request = textAreaData.get("textAreaCode")
+        let new_request = textAreaData.get("promptInput")
         new_request.onsuccess = function(){
-          console.log("textArea in IDB", new_request.result.content);
+          // console.log("textArea in IDB", new_request.result.content);
         }
       }
 
@@ -113,7 +110,11 @@ function run_simulation() {
       console.error("Error", openRequest.error);
     };
 
-    ws.onmessage = ()=>{location.reload();}
+    ws.onmessage = function (event) {
+      location.reload()
+      const raw_data = JSON.parse(event.data)
+      console.log("raw_data", raw_data)
+    }
     // ws.send(get_item_by_id('cell').shape.get_points());
   }
   if (window.editor) {
